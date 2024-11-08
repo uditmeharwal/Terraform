@@ -1,0 +1,4 @@
+-virtual machine
+-vagrant
+-setup Linux
+-putty
