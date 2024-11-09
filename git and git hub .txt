@@ -16,8 +16,19 @@
 -git pull origin main - the change which we have done on github data -gitwill come to local 
 -git branch -it show the lish of branches 
 -git branch a - for creating new branch
+-git branch -d a -for delete branch locally 
+-git push origin --delete a - for delete branch in github 
 -git switch a- change the branch 
 -git log -for history related to push 
 -merging - through github go to pullrequest in repo and select on ehich the file is merging 
+
+
 --HOOKS--
--ls -a > cd .git/ > cd hooks/ > ls  > vim pre-commit >
+-ls -a > cd .git/ > cd hooks/ > ls  > vim pre-commit > files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
+flake8 $files     --- > it dont allow to upload the code on github if it have some errors 
+
+-if git grep -q 'password\|secret_key\|API_KEY'$ (git diff --cached --name-only); then
+echo"this file contain password or api please remove "
+exit 1
+fi - if anyfile contain pass or apikey then it will not allow you to upload on github 
+
