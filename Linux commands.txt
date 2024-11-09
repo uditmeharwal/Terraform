@@ -117,7 +117,7 @@ networking commands
 -arp -address routing protocol  help to know macaddress
 -ifplugstatus - help to know that interface are working on not
 -------------------------------------------------------------------------------------
--curl -X GET api link -for calling api 
+-curl -X GET api_link -for calling api 
 -jq is use to properly show the api data it is use in curl command (curl -X GET apilink |jq)
 -wget https:// sample link - for dowloading data from link  
 -iptables
