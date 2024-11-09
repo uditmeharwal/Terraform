@@ -10,4 +10,8 @@
 -git branch -M main  -naming the branch as main
 -git push origin main - for pushing the data 
 -git remote set-url origin https:tokenkey//link - this is use for accessing the github using the tocken for creating tcoken 1 -> settings  2-> developer mode 3-> tocken key 4-> create tocken 5-> use this command 
-
+-fork - copy repository from given account to your account as it is 
+-git clone url -it will clon the github directory to local 
+-for updating the document use git add -> git commit -m "" -> git push origin main
+-git pull origin main - the change which we have done on github will come to local 
+ 
