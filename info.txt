@@ -2,3 +2,4 @@
 -vagrant
 -setup Linux
 -putty
+-flake 8

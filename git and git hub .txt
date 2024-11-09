@@ -19,4 +19,5 @@
 -git switch a- change the branch 
 -git log -for history related to push 
 -merging - through github go to pullrequest in repo and select on ehich the file is merging 
--
+--HOOKS--
+-ls -a > cd .git/ > cd hooks/ > ls  > vim pre-commit >
