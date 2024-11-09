@@ -13,5 +13,10 @@
 -fork - copy repository from given account to your account as it is 
 -git clone url -it will clon the github directory to local 
 -for updating the document use git add -> git commit -m "" -> git push origin main
--git pull origin main - the change which we have done on github will come to local 
- 
+-git pull origin main - the change which we have done on github data -gitwill come to local 
+-git branch -it show the lish of branches 
+-git branch a - for creating new branch
+-git switch a- change the branch 
+-git log -for history related to push 
+-merging - through github go to pullrequest in repo and select on ehich the file is merging 
+-
