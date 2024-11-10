@@ -3,3 +3,6 @@
 -setup Linux
 -putty
 -flake 8
+-boto8
+-aws cli 
+-
