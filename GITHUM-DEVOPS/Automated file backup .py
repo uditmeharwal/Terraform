@@ -1,3 +1,5 @@
+# for automated backup of file into tar.gz format 
+
 import shutil
 import datetime
 import os
