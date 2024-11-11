@@ -1,0 +1,62 @@
+-shell script - vim samplescript.sh
+-inside the file -> #!/bin/bash  
+ 				echo "hi how are you "
+-for run the script file  -> bash samplescript.sh
+-another method to run shell script -> ./samplescript.sh
+
+-# -for single line comment 
+-<< comment  ..... data.... comment -for multiline comment data enter between these comments 
+
+VARIABLES
+-name="udit"
+-echo "my name is $name , from chandena " -print name 
+-echo "todays date is $(date)" - for running any command we use ()
+
+-echo "Enter the name:"
+-read username -for taking input from user 
+-echo "your name is username" 
+-read -p "Enter user name " user -for giving the promt during taking input 
+
+ARGUMENTS
+-echo "the user are $0,$1" - if we write ./file.sh udit -output will be the user are ./file.sh ,udit 
+
+CONDITIONALS
+-if else elif
+read -p "enter your name " name
+read -p "enter the value " value
+
+if [[ $name == "udit" ]];
+then
+	echo"you are udit "
+elif[[ $value -ge 100 ]];
+then
+	echo "the value is 100"
+else
+	echo "you are not udit"
+fi
+
+-for_loop
+for (( num=0 ; num<=5 ; num++ ))
+do 
+	echo "hi $num"
+done
+
+-while loop
+num=0
+
+while[[ $num -le 5]]
+do 	
+	echo"lol"
+	num++
+done
+
+-functions 
+function_name() {
+	inside codes
+}
+
+function_name -- calling the function 
+
+
+
+
