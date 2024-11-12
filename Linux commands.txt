@@ -1,8 +1,10 @@
 Linux commands 
--date - print date 
+-date - print date  
+-date '+%Y-%m-%d-%H-%M-%S' -for specific format 
 -whoami -give out Linux as result 
 -mkdir Linux -create a folder as name Linux 
 -ls -list show 
+-ls -t -use for file sort 
 -pwd -show present working directory
 -cd Linux -for accessing the folder 
 -cd .. -for exit out from the folder 

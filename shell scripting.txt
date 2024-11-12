@@ -57,6 +57,46 @@ function_name() {
 
 function_name -- calling the function 
 
+ERROR HANDELING
+-if ! function_name;then
+	echo "the code has error "
+	exit 1
+fi
 
+-set -euo pipefail -use command for better error handeling 
 
+MAKE FILES -shoul always create file on the name of Makefile
 
+.PHONY=built up down run
+
+DOCKER_COMPOSE := docker-compose   -- the command which we want to use again and again save as variable 
+
+OS := $(shell uname)
+
+built: 
+ifeq($(OS),Linux)
+	@echo "Running in $(os)"     -- for creating if condition  -if linux then code built otherwise no
+	$(DOCKER_COMPOSE) built
+endif 
+up: 	
+	$(DOCKER_COMPOSE) up -d
+down:
+	$(DOCKER_COMPOSE) down
+clean:
+	docker system prune -y
+
+//makefiletutorial.com - for more info 
+
+---------------------------------------
+.PHONY: upt
+COM := sudo apt 
+
+upt:
+    $(COM) update 
+
+-- for run use - make upd 
+-- file save as Makefile
+
+-$? -denote upper command 
+-crontab -e - for run any command at any time 
+ 	
