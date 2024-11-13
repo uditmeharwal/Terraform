@@ -1,0 +1,59 @@
+-OSI model Here is the text from the image:
+1. **PHYSICAL LAYER**  
+   Transmits raw bit stream over the physical medium.
+
+2. **DATA LINK LAYER**  
+   Defines the format of data on the network.
+
+3. **NETWORK LAYER**  
+   Decides which physical path the data will take.
+
+4. **TRANSPORT LAYER**  
+   Transmits data using transmission protocols including TCP and UDP.
+
+5. **SESSION LAYER**  
+   Maintains connections and is responsible for controlling ports and sessions.
+
+6. **PRESENTATION LAYER**  
+   Ensures that data is in a usable format and is where data encryption occurs.
+
+7. **APPLICATION LAYER**  
+   Human-computer interaction layer, where applications can access the network services.
+-TCP/IP model 
+-IP/Subnets -subnet devided an ip into various segments and a user can use the ip if he is connect from one ip
+-DNS -domain name system 
+-nat gateway -network access translator  it allow to translate public ip and private ip of any subnet and help to communicate between them   
+-internet gateway - which allow user to access vpc cloud 
+-routing table - this table help internet gateway to give ip address of subnet which are present in vpc and help to access the application 
+-firewall -prevent unauthorise access and control internet security 
+-VPC -virtual private cloud under which EC2 instance is created 
+
+>first update system >sudo apt get install ngnix >cd /var/www/html >sudo vim index.html> past your html code >your_ip.80
+> go to EC2 instance > instance id >security > security group >edit bunds >add rule>change source to anywhere ip4>
+it will giv permission to EC2 to access the website which we deploy from ngnix from anywhere 
+
+-route 53 -service present in the aws which allow to buy  your domain at cheap price 
+-Load balancer -distribute the traffic application load balancer and network load balancer 
+>ec2 > load balancer > create 
+
+--------------------------------------------------------------------------
+FOR CREATE VPC AND SETUP AS USE IN PUBLIC 
+>open vpc >select region> name your vpc> >enter ipv4 > create vpc
+>subnet >create subnet > select vpc > name_subnet > availabily fill > create subnet
+>create ec2 instance > select your vpc in ec2 instance > auto assign public ip(enable)
+>internet gateway>create internet gateway>name them > create >attach to vpc >attach internet gateway 
+>route_table >create > name > choose vpc > create 
+>route_table > subnet association > edit subnet association > choose subnet and attach >edit rout > add rout > 0.0.0 > internet gateway choose  save
+------------------------------------------------------------------------
+FOR CREATE TWO VPC AND ATTACH TOGETHER (vpc peering)
+-same process follow as in vpc 
+- vpc > peering connections >creat > name > select vpc> create >go to acton >accept request 
+-route table > routes > edit > add route > add ip of other vpc > peering  connection > 
+-do the same routing process for other route table 
+> go to instances > securitysecurity group >edit inboud rule >add rule > all icmp > cidr block  test mai production ki range > 
+>same for other instance > cidr may prod mai test ki ip dalega 
+------------------------------------------------------------------------
+public subnet to private 
+> create a subnet > add ip cidr 10.0.1.0/24 > create 
+>nat gateway > create > choose public subnet > create 
+>route >choose the route according to your vpc > routs > add > nat gateway >  save 

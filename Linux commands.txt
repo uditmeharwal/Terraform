@@ -98,10 +98,10 @@ networking commands
 -ping -c 2 8.8.8.8 -for checking the internet connectivity
 -netstat -a - to check active connections on a server  | ss-same as netstat
 -ifconfig -network interface details of network interface card 
--traceroute - hoping of ip 
+-traceroute - it will tell us from where the website is connecting 
 -tracepath -
 -mtr -
--nslookup -for check domain working or not 
+-nslookup -for check domain working or not  and getting the ip address of website 
 -telnet  -help to connect on weebsite with specific port 
 -hostname -give host name  
 -cat /etc/hosts -give host information 
@@ -165,6 +165,7 @@ GREP
 -mount /dev/tws_vg/tws_lv /mnt/tws_lv_mount - for mounting the logical volume(mount source destination 
 -umount /mnt/tws_lv_mount -for unmounting the logical volume 
 -lvextend -L +5G /dev/tws_vg/tws_lv tws_vg -for extend the volume from group 
+
 
 
 
