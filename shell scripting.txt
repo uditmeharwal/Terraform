@@ -6,7 +6,7 @@
 
 -# -for single line comment 
 -<< comment  ..... data.... comment -for multiline comment data enter between these comments 
-
+-------------------------------------------------------------------------------------------------------------------------------
 VARIABLES
 -name="udit"
 -echo "my name is $name , from chandena " -print name 
@@ -16,10 +16,10 @@ VARIABLES
 -read username -for taking input from user 
 -echo "your name is username" 
 -read -p "Enter user name " user -for giving the promt during taking input 
-
+-----------------------------------------------------------------------------------------------------------------------------------
 ARGUMENTS
 -echo "the user are $0,$1" - if we write ./file.sh udit -output will be the user are ./file.sh ,udit 
-
+-----------------------------------------------------------------------------------------------------------------------------------
 CONDITIONALS
 -if else elif
 read -p "enter your name " name
@@ -34,7 +34,7 @@ then
 else
 	echo "you are not udit"
 fi
-
+-------------------------------------------------
 -for_loop
 for (( num=0 ; num<=5 ; num++ ))
 do 

@@ -97,7 +97,7 @@ compression commands
 networking commands 
 -ping -c 2 8.8.8.8 -for checking the internet connectivity
 -netstat -a - to check active connections on a server  | ss-same as netstat
--ifconfig -network interface details of network interface card 
+-ifconfig -netwo rk interface details of network interface card 
 -traceroute - it will tell us from where the website is connecting 
 -tracepath -
 -mtr -
