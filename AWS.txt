@@ -1,0 +1,14 @@
+-Elastic ips - for preventing the ip not to change after restart devices ->allocate ip address>action > associate elastic ip > choose instance > done 
+-----------------------------------------------------------------------------------
+EBS elastic block storage
+-ecc2  dashboard > ebs volume > create volume 
+-types of volume 
+-iops -input output operation per second
+-general purpose- balanced price and performance 
+-provisioned iops - best and hight capaciy volume 
+-magnetic -very cheaper but aws dont recommend 
+
+
+-----------------------------------------------------------------------------------
+
+ 
