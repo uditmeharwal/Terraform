@@ -11,4 +11,97 @@ EBS elastic block storage
 
 -----------------------------------------------------------------------------------
 
- 
+ snapshot -it help to take a copy of our machine or our data . incase if our data got affected by any software issue or configuration issue then we can recover it by using our last snap shot this facility available in vm ware, aws ebs also (it help to take a backup incase we loose data we can recover the data ) 
+-aws store the snapshot in s3 bucket
+-lifecycle policy -for automatically backup the data at the particular time 
+->snapshot > recycle bin > create retension > setup -it will create a recycle bin through which we can restore the data
+------------------------------------------------------------------------------------
+Ami amazone machine image  -ya help karta hai kisi istance ki image banana mai for example hamari kisi instance may koi software hai jo hmna setup kiya hai  and vo  koi work karta hai (like ngnix run website)  to ami huma provide karta hai ki huma bar bar same installationa or running na karni pda software ki ya use pehla sa he install karka rakhta hai to jab hum koi naya instance bnayaga to usma huma ya sab software pehla sa install milega jo humna main ami instance mai install kiya tha 
+
+create a instance > right click on instance > image and template > create image > now ami in created >now lauch ami image of machine which is exact copy of mai instance 
+for using  an instance of ami which we created - go to lauch instance > select my ami >  create and lauch 
+
+share any ami -ami> action > edit permission > there you have share account facility
+for delete ami > ami > action > dergister > go to snapshot > delete snapshot 
+---------------------------------------------------------------------------------------
+Load balancer- for balancing the load on server 
+-types of load balancer 
+
+-classic load balancer 
+create 4 ec2 instance> name the balancer >  set protocol > create security group> add instance > add tag>
+
+-applicaton load balancer -for this load balancer we need to create target group and then use application load 
+target group > select instance > target group is created >create application load balancer 
+
+-if you want to add the condition like is user add the /test/ in url then the load balancer will transfer to another load balancer 
+go to load balancer > listener > view edits rule > click on + > add path condition(like /test/) > forward to another load balancer  
+
+group sitickyness means stick on the particular load balancer until it turn off 
+target group >1 group > attributes > edit > stickyiness on> 
+
+-network load balancer - it transfer the data from one point to another point without knowing the data and deliver the data to perticular port which we have feed 
+
+-------------------------------------------------------------------------------------------------
+Auto scaling group (asg) if the number of users increase then autoscaling allow use to increase the number of servers automatically
+-vertical scaling  -resizing one server according to load 
+-horizontal scaling -increase the number of severs according to the load 
+
+launch template > autoscaling group > create > select template > 
+
+types of automatic scaling 
+scheduled scaling  - at a particular time number of servers become increase 
+predictive scaling - predict and arrange the servers according to the load 
+dynamic scaling -  simple scale
+		   step scaling
+		   target scaling 
+
+aws cloud watch -watch for monitoring the data 
+----------------------------------------------------------------------------------------------------
+network interface (nic)
+create > attach > select instance >
+
+reserve instance -this is the type of instance which is use to buy an instance for a period of time 
+
+----------------------------------------------------------------------------------------------------
+IAM - manage user axcess and also give them access to use particular tool in aws 
+user group - group of various users which have access to use a technology 
+MFA user - multi factor authontification 
+use aws cli -cammand line interface 
+	     add user > use default settings only allow admin to acess >security credintials > create access key > command line interface > use command enter credentials 
+
+role - the use of role is to give the specific permission to any instance like they dont need to use sduo for running admin commands we give them permission in role and the usie the instance > select security > them modify iam role > choose the particular role then the permission is ready to use 
+
+cloud shell -it is online commandline interface which user can use 
+--------------------------------------------------------------------------------------------------
+Amazon simple storage service (s3 bucket)
+publically access and object from bucket -go to bucket > permission > edit policy > click on policy generator > select policy s3 > then allow > prinnciple * > action getobject > then bucket arn > add statement > copy policy and paste it > enter resource = /* and save 
+
+versioning in s3 - go to bucket properties > enable bucket versioning 
+
+static website hosting - upload your webside files in bucket > make bucket public > go to static website hosting > edit > enable > save > bucket > permission > bucket policy > make policy > 
+
+s3 Acceleration  this is the method which help to increase the speed for transfering the file to a long distance 
+- create bucket -  open bucket > transfer acceleration > Enable  and open console > enter ipconfigure>aws  s3 ls > aws cp 1.jpg s3://bucket-name   for acceleration uploading ( aws cp 1.jpg s3://bucket-name --endpoint-url link_of_accelerated_url )
+
+s3 replication  make copy of s3 bucket 
+same region replication 
+cross region replication 
+
+create two bucket > go to management > replication rule > create rule > the data will automatically replicated to another bucket which we have selected as destination 
+
+logs of s3 bucket 
+logs always create in seperate bucket if we create in same bucket then loop of logging will start
+bucket > properties > server access logging > enable > choose target where to save the logs > 
+
+storage classes 
+during uploading the file we are allow to choose the which type of storage and it is in property section 
+
+life cycle management in aws s3 -it is use to change the storage type after a period of time automatically or terminate the storage after a period of time
+bucket > management > create life cycle rule > 
+
+aws intelligence tiering 
+frequent , in frequent , archive - after 30 days of non use transfer to infrequent and after that transfer to archieve 
+bucket > properties > intellience tearing archieve config > create config >  enter the days according to your demand 
+
+cors policy -the most important usable technique 
+

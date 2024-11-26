@@ -164,6 +164,7 @@ GREP
 -mkfs -t ext4 /dev/xvdh -for mounting nongroup single volume  
 -mount /dev/tws_vg/tws_lv /mnt/tws_lv_mount - for mounting the logical volume(mount source destination 
 -umount /mnt/tws_lv_mount -for unmounting the logical volume 
+-mountpoint /data -for checking that the volume is mount 
 -lvextend -L +5G /dev/tws_vg/tws_lv tws_vg -for extend the volume from group 
 
 
