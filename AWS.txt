@@ -104,4 +104,21 @@ frequent , in frequent , archive - after 30 days of non use transfer to infreque
 bucket > properties > intellience tearing archieve config > create config >  enter the days according to your demand 
 
 cors policy -the most important usable technique 
+permission > cross origion resource sharing 
 
+presign url -this is the type of url which is use to share your data to other using a autoexpire link 
+object > action > share presigned url > give time > create 
+it help to share the object without publicing it 
+
+encription 
+client side -it is the type of encription in which client enript the file then upload it 
+server side 
+----------------------------------------------------------------------------------------------------
+cloud front- securly deliver content with low latency and high transfer speed 
+if you want to access data from far location it allow us to get the data from far loacation to our nearest point and also save a copy of data to nearest point if again any user want the file then we can access the file again 
+
+create an ec2 instance > go to cloud front and create a cloud front > enter domain name of ec2 > 
+
+remove the cache files which are stored in cloud front location 
+cloud front > distribution > open > invalidation > add path for all /*
+  
