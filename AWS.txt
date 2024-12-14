@@ -170,5 +170,13 @@ transit gateway -this is use for peering of multiple vpcs using one common vpc .
 transit gateway> create > name > asn > save > transist gateway attachment > name > select vpc > create > same as this create transit for all other vpc 
 go to route table > add route 10.0.0.0/16 , 192.168.0.0/16 to target transit gateway attachment  >  do this process for all the vpc route tables 
 
-flow logs - give te info of recieving and sending packets it give the information of traffic .this feature available in all services
+flow logs - give the info of recieving and sending packets it give the information of traffic .this feature available in all services
 vpc > create flow log > name > all > time >  
+
+vpc end point - it enables customers to privately connect to supported AWS services it allow us to connect to the local network and use services without giving internet acces to the instance 
+create a vpc and setup it (subnet , routetable ) > go to endpoint > create > select service > select vpc > select route table > save > now we can access instance services which we have selected and use it without give internet access( security group ) to the instance 
+two type of vpc endpoint gateway and interface 
+
+AWS VPN -virtual private network it is use to secure and access the private network
+AWS site to site vpn 
+
