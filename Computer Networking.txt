@@ -37,23 +37,3 @@ it will giv permission to EC2 to access the website which we deploy from ngnix f
 >ec2 > load balancer > create 
 
 --------------------------------------------------------------------------
-FOR CREATE VPC AND SETUP AS USE IN PUBLIC 
->open vpc >select region> name your vpc> >enter ipv4 > create vpc
->subnet >create subnet > select vpc > name_subnet > availabily fill > create subnet
->create ec2 instance > select your vpc in ec2 instance > auto assign public ip(enable)
->internet gateway>create internet gateway>name them > create >attach to vpc >attach internet gateway 
->route_table >create > name > choose vpc > create 
->route_table > subnet association > edit subnet association > choose subnet and attach >edit rout > add rout > 0.0.0 > internet gateway choose  save
-------------------------------------------------------------------------
-FOR CREATE TWO VPC AND ATTACH TOGETHER (vpc peering)
--same process follow as in vpc 
-- vpc > peering connections >creat > name > select vpc> create >go to acton >accept request 
--route table > routes > edit > add route > add ip of other vpc > peering  connection > 
--do the same routing process for other route table 
-> go to instances > securitysecurity group >edit inboud rule >add rule > all icmp > cidr block  test mai production ki range > 
->same for other instance > cidr may prod mai test ki ip dalega 
-------------------------------------------------------------------------
-public subnet to private 
-> create a subnet > add ip cidr 10.0.1.0/24 > create 
->nat gateway > create > choose public subnet > create 
->route >choose the route according to your vpc > routs > add > nat gateway >  save 

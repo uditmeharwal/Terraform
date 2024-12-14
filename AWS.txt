@@ -119,6 +119,56 @@ if you want to access data from far location it allow us to get the data from fa
 
 create an ec2 instance > go to cloud front and create a cloud front > enter domain name of ec2 > 
 
-remove the cache files which are stored in cloud front location 
+remove the cache files(the file which is store in nearest cloud front ) which are stored in cloud front location which comes from the far location and store to the cloud front 
 cloud front > distribution > open > invalidation > add path for all /*
-  
+
+block all ip of the instance only access via cloudfront link 
+vpc > manage prefix list > click on cloudfront > details > copy prefix id> ec2 > security group > edit inbound rule > delete port 80 > add http> custom and past the cloudfront id > save > 
+
+attach s3 bucket to cloudfront 
+create a private s3 bucket > create cloud front > select bucket save > update policy > copy policy and click on link > edit bucket policy > paste > save 
+
+for accessing  cloud front using the link according to path we select 
+origion create > fill all details > copy policy > paste to permissions to your s3 bucket >  save > behaviour > create > select path > select origin like ec2 , s3 > save > create the particular file in your s3 or ec2 linke index.html 
+
+Error page managing in cloudfront 
+create > select reponse code > enter page path which we want to show > 
+
+geographic restrictions 
+the range of ip address which we want to allow to access or block the access of the page we enter here 
+
+----------------------------------------------------------------------------------------------------------------------------------
+vpc
+
+FOR CREATE VPC AND SETUP AS USE IN PUBLIC 
+>open vpc >select region> name your vpc> >enter ipv4 > create vpc
+>subnet >create subnet > select vpc > name_subnet > availabily fill > create subnet
+>create ec2 instance > select your vpc in ec2 instance > auto assign public ip(enable)
+>internet gateway>create internet gateway>name them > create >attach to vpc >attach internet gateway 
+>route_table >create > name > choose vpc > create 
+>route_table > subnet association > edit subnet association > choose subnet and attach >edit rout > add rout > 0.0.0 > internet gateway choose  save
+
+FOR CREATE TWO VPC AND ATTACH TOGETHER (vpc peering) -ip cidr of both vpc should be different 
+-same process follow as in vpc 
+- vpc > peering connections >creat > name > select vpc> create >go to acton >accept request 
+-route table > routes > edit > add route > add ip of other vpc > peering  connection > 
+-do the same routing process for other route table 
+> go to instances > securitysecurity group >edit inboud rule >add rule > all icmp > cidr block  test mai production ki range > 
+>same for other instance > cidr may prod mai test ki ip dalega 
+
+public subnet to private 
+> create a subnet > add ip cidr 10.0.1.0/24 > create 
+>nat gateway > create > choose public subnet > create 
+>route >choose the route according to your vpc > routs > add > nat gateway >  save 
+ 
+NACL -network access control list 
+it allow to block the pacticular network to access .it comes after security group 
+
+vpc dashboard> security> network acl > create > select vpc > save > now open the inbound rule > add rule > save 
+
+transit gateway -this is use for peering of multiple vpcs using one common vpc . vpc should be of same region 
+transit gateway> create > name > asn > save > transist gateway attachment > name > select vpc > create > same as this create transit for all other vpc 
+go to route table > add route 10.0.0.0/16 , 192.168.0.0/16 to target transit gateway attachment  >  do this process for all the vpc route tables 
+
+flow logs - give te info of recieving and sending packets it give the information of traffic .this feature available in all services
+vpc > create flow log > name > all > time >  
