@@ -178,5 +178,19 @@ create a vpc and setup it (subnet , routetable ) > go to endpoint > create > sel
 two type of vpc endpoint gateway and interface 
 
 AWS VPN -virtual private network it is use to secure and access the private network
-AWS site to site vpn 
+AWS site to site vpn (108 video )
 
+for site to site vpn connection we need to use two different account of aws and one is in mumbai location other is in singapor region 
+create ec2 in both region  > select vpc and subnet in ec2 which we need to create in both region  > copy the public ip of singapor ec2 and past it in customor gateway of mumbai region > create customer gateway > add ip of singapor ec2 > save > go to virtual private gateway of mumbai > create > action > attach to vpc > then choose the vpc which we create in mumbai region > now go to site to site connection in mumbai > create > select vpg > routing static > give static ip (192.168.0.0/24 ,172.16.100.0/24) > local ipv4 cidr (92.168.0.0/24) > remote ipv4 network cidr 172.16.100.0/24)>  now create > now go to instance in singapor and connect > sudo apt install openswan > now download config form vpc connection  of mumbai region > select openswan > download > follow step written in download file and do this in singapor instance > open route table in mumbai > action > edit route propogations > enable > now go to route table of singapor edit > add inbound > 172.16.100.0/24 > target instance > choose instance > choose instance in singapor > networking > change source destination check > stop > 
+
+egress only internet gateway  it is similar as of nat gateway only the differance is it only support ipv6 network
+create > choose vpc > save 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Route 53 
+dns domain name system - it convert url in ip address 
+domain register > register domain > search >  select domain and buy it > now go to request section > click on action and varify payment > now varify it through your mail link > now setup instance and setup ngnix and make a web page 
+
+hosted zone -here we can manage all the configrations related to the domain 
+soa records - start of authority domain details 
+ns records -use to route traffic to the hosted zone 
+hosted zone > create > 
