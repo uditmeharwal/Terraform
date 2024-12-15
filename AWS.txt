@@ -193,4 +193,24 @@ domain register > register domain > search >  select domain and buy it > now go 
 hosted zone -here we can manage all the configrations related to the domain 
 soa records - start of authority domain details 
 ns records -use to route traffic to the hosted zone 
-hosted zone > create > 
+
+when we buy the domain hosted zone will automatically created 
+hosted zone > create > select record type according to the need > enter ip address > create record 
+A - property use for ipv4 ip address 
+AAAA -property use for ipv6 ip address 
+
+if we use bucket the website name should be  same as of your bucket name and property should be CNAME
+CNAME- property use when we dont have any ip address and wwe use it in bucket  , it is only use for subdomain not for whole domain  
+hosted zone > create select CNAME > enter bucket link > create 
+
+alias -if we want to use bucket as main domain so alias is used . alias is most used because it is free of cost. using ttl we can optimize the cost by increase one day time  
+
+TXT record - we can only access txt recoard by command line and programatically . this is only use for varify that the user who use this is the owner of this domain 
+
+MX record - this is mail related server 
+
+PTR record -it maps an ip address using the domain name 
+
+Health checks - it is use to check the health of the website it is working perfectly or not 
+
+
