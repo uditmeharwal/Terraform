@@ -211,6 +211,21 @@ MX record - this is mail related server
 
 PTR record -it maps an ip address using the domain name 
 
+routing police - 
+		simple routing policy - this does not give use health check policy during hosting 
+		weigthage routing policy -,it allow us to enter percentage of load and distribute the load of  different ip address ,also have health check feature 
+		geolocation routing police - it allow us to access the particular ip address according to the loaction ,for all countries we use default 
+		latency based routing location - the server which have lo latency it will redirect the ip address to the loaction ip
+		failover routing police - it is primary and secondary based police  which in case of unhealthy(fail) of primary server it will use secondary server 
+		multivalue answer routing policy - in this we can use multiple ip addresss with health check 
+		ip based routing policy - for this we need to create cidr > then add ip address of instance > now choose the policy and select the cidr location 
+
 Health checks - it is use to check the health of the website it is working perfectly or not 
 
+paren health check - enter name > ch0oose status of other health check > choose all the sites which we want to check > create 
 
+traffic policy - it is gui based  traffic policy system with which we can easily manage and host the domain 
+
+logging - create a bucket > query logging > choose bucket > add a vpc > save > ssh on instance > now use commands > this all wee automatically in s3 bucket in logs 
+
+DNS firewall - create> add rule > add your own domain list > enter the site which we want to block > choose action > save > now click on associated vpc > choose vpc > 
