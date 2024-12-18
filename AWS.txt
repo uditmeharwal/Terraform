@@ -228,4 +228,7 @@ traffic policy - it is gui based  traffic policy system with which we can easily
 
 logging - create a bucket > query logging > choose bucket > add a vpc > save > ssh on instance > now use commands > this all wee automatically in s3 bucket in logs 
 
-DNS firewall - create> add rule > add your own domain list > enter the site which we want to block > choose action > save > now click on associated vpc > choose vpc > 
+DNS firewall - create> add rule > add your own domain list > enter the site which we want to block > choose action > save > now click on associated vpc > choose vpc > done
+
+private hosted zone - create hosted zone > select private > select vpc > now create > open hosted zone > create  record > add ip address > create > 
+only the vpc through which we have hosted the site can only access the site peering vpc is also not access the site 
