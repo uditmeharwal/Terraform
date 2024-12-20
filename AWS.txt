@@ -243,3 +243,5 @@ create database > select data base type > enter user name and password > publica
 
 connect to insatance - go to ec2 instance > sudo apt get update > sudo apt install mysqlclient > add mysql to security group > mysql -h hostname link -u admin -p password > you are connected to db now 
 client depend up on the type of database 
+
+read replica 
