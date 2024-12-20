@@ -254,3 +254,13 @@ rds proxy -available between application and aws rds
 database > create proxy >select target 
 --------------------------------------------------------------------------------------------------------------------------
 aws aurora database - competable with sql and postgrel , provide more feature then other dtabase 
+creation of the database is similar as of other 
+
+cross region replication - in which he create replica in anothr region 
+
+parameter group - these are default , if we want to change  we need to create a parameter group 
+
+--------------------------------------------------------------------------------------------------------------------------
+DynamonDB it does not need to create a database  you only need to create table 
+dynamo db > create table > enter primary key > create > select table > action > create items > now choose type of attributes >  save 
+ 
