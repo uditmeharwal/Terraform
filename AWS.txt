@@ -1,4 +1,4 @@
- -Elastic ips - for preventing the ip not to change after restart devices ->allocate ip address>action > associate elastic ip > choose instance > done 
+t -Elastic ips - for preventing the ip not to change after restart devices ->allocate ip address>action > associate elastic ip > choose instance > done 
 -----------------------------------------------------------------------------------
 EBS elastic block storage
 -ecc2  dashboard > ebs volume > create volume 
@@ -273,11 +273,19 @@ export or store data in s3  - export to s3 > select table > destination > export
 import data in table -import in s3 > select bucket > done 
 ---------------------------------------------------------------------
 simple email service - AWS SES 
-SES > identities > create > email address > enter your email > go to main > confirm > send test email >  go to account dashboard > view get set up page > request production access > enter your request > 
+SES > identities > create > select domain or email address > enter your email > go to main > confirm > send test email >  go to account dashboard > view get set up page > request production access > enter your request > then request will accept by aws within 24 hrs 
 
+use production area for sending email 
+get set up > request for production access > enter the request details >  approve within 24 hrs 
 
+reputation metrics > 
+bounce rate -the mails which are not deliver are bounce rate 
 
-
+customize the mail sub domain >identifiers  > select your domain >  custom mail from domain > edit > add domain > save > now publish dns records .
+----------------------------------------------------------------------
+SNS -simple notification service  - this provide various notifictaion service 
+create a topic > create 
+create subscription > choose protocol (email) > enter email address > create  > varify mail using link > topics > global > publish message > enter msg > send 
 
 
 
