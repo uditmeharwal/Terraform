@@ -284,13 +284,19 @@ bounce rate -the mails which are not deliver are bounce rate
 customize the mail sub domain >identifiers  > select your domain >  custom mail from domain > edit > add domain > save > now publish dns records .
 ----------------------------------------------------------------------
 SNS -simple notification service  - this provide various notifictaion service 
-create a topic > create 
-create subscription > choose protocol (email) > enter email address > create  > varify mail using link > topics > global > publish message > enter msg > send 
+create a topic > create > create subscription > choose protocol (email) > enter email address > create  > varify mail using link > topics > global > publish message > enter msg > send 
 
+sending text msg -text messaging > sandbox destination phone number > add phone number > varify number > create subscription > select sms select number > publish msg > write message > send 
 
+-----------------------------------------------------------------------------
+cloud watch -monitoring service 
+ it help to examin and monitoring the system and incase thr system is out of service it will notify us 
 
+namespace and metrics 
+cloud watch > metrics > all metrics > browse >   
 
-
+create custom dashboard 
+dashboard > create > name > add wigits >  save or you can share it to other user through mail
 
 
 
