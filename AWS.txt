@@ -328,6 +328,17 @@ AWS Lambda -it is computing service ,it is server less
 
 aws lambda > create function  > name function > select programming language > create function > 
 
+execute a function using function url 
+create a function  in code section > go to configration > function url > create > save > now you will get a url 
+
+cold start and hot start 
+
+cold start - in cold start when we firstly test our program it takes more time becuse due to first time it create the execution file in the server and then run it thats why it takes time 
+hot start  or worm start -  in hot start the execution files are previously available in the system thats why it takes very less time to run the program 
+hot start help to reduce the bill 
+
+environment variable  these are the abbrivitation form of full line which is use in code and can be mentioned in stort form 
+configrations > environment variables > create > key and value > save 
 
 
 
