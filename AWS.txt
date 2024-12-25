@@ -298,6 +298,55 @@ cloud watch > metrics > all metrics > browse >
 create custom dashboard 
 dashboard > create > name > add wigits >  save or you can share it to other user through mail
 
+trigger alert 
+matrics > search cpu utilization > select and click create alarm > set condition create alarm 
+                              or 
+alarms > all alarm > create alarm > select metrics > ec2 > cpu  utili> set condition create alarm 
+
+billing alarm  -alarm related to the cost , it will send the alarm in case we cross out particular budget 
+billing > create > enter the money value > set sns > save
+
+composit alarm -combination of multiple alarms 
+all alarm > create composit alarm > aelect condition > select sns topic > enter msg > create 
+
+cloud watch agent
+create an instance > give them iam admin permission > sudo apt install collectd > now download agent from aws link using command "wget link"> 
+ " dpkg -i appname " for install it in system > choose os > fill all the info according to usage > now you will get data in metrics 
+ 
+Application logs 
+log insites -here we can analyse the logs and find specific log or any error 
+
+using the logs information create a alarm 
+log group > select log stream > search specific condition > create metrics filter > 
+log group > matrics filter > create  > all metrics > open namespace > click > create alarm > 
+
+create custom metrics using cli 
+search command on internet 
+
+-------------------------------------------------------------------------------------
+AWS Lambda -it is computing service ,it is server less 
+
+aws lambda > create function  > name function > select programming language > create function > 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
