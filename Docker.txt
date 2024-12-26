@@ -1,0 +1,18 @@
+docker create the environment where we can run our application , it is open source tool , made by dot cloud 
+virtualization vs containerization -> in virtualization we use vm and in contanirization we use docker ,podma ,containerd
+docker engin use host operating system to run app , it is very light weight 
+docker architecture -> docker engin - 
+                    -> docker demon - it help to manage the containers -> demon use container d  in backed -> it is a tool  
+                    -> docker cli -  command line interface 
+                     -> docker client -> it communicate with demon and engin 
+
+install docker using cli -sudo apt install docker.io
+check status - sudo systemctl status docker 
+for adding user to docker -sudo usermod -aG docker $USER
+for refreshing the system after adding user  -newgrp docker
+show all contaier list -docker ps 
+login -docker login 
+your profile > account setting > persnal access token > paste it in terminal
+dockerfile-> docker image -> container
+docker pull hello-world -for cloning sample image 
+
