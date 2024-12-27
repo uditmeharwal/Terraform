@@ -1,18 +1,68 @@
 docker create the environment where we can run our application , it is open source tool , made by dot cloud 
-virtualization vs containerization -> in virtualization we use vm and in contanirization we use docker ,podma ,containerd
+virtualization vs containerization -> in virtualization we use v.m and in contanirization we use docker ,podma ,containerd
 docker engin use host operating system to run app , it is very light weight 
 docker architecture -> docker engin - 
                     -> docker demon - it help to manage the containers -> demon use container d  in backed -> it is a tool  
                     -> docker cli -  command line interface 
-                     -> docker client -> it communicate with demon and engin 
+                    -> docker client -> it communicate with demon and engin 
 
-install docker using cli -sudo apt install docker.io
-check status - sudo systemctl status docker 
-for adding user to docker -sudo usermod -aG docker $USER
-for refreshing the system after adding user  -newgrp docker
-show all contaier list -docker ps 
-login -docker login 
-your profile > account setting > persnal access token > paste it in terminal
-dockerfile-> docker image -> container
-docker pull hello-world -for cloning sample image 
+
+-> sudo systemctl status docker -check status 
+-> sudo usermod -aG docker $USER -for adding user to docker 
+-> newgrp docker - for refreshing the system after adding user  
+-> docker ps -show all contaier list 
+-> docker images -show all the images 
+-> docker login -login 
+-> for login using personal access token -> your profile > account setting > persnal access token > paste it in terminal
+-> dockerfile-> docker image -> container
+-> docker pull hello-world -for download sample image from internet 
+-> docker run hello-world - for running the image 
+-> docker rmi image-name -delete images 
+-> docker stop container-id -stop the container 
+-> docker start container-id -start the container 
+-----------------------------------------------------------------------------
+make a docker file -it is the file in which a set of instruction is available
+-> create a folder name "project " and open it in terminal 
+-> clone a project from git hub 
+-> open the folder in terminal 
+-> create a file name "Dockerfile" 
+------------------------------------this is for java 
+# stable official Java runtime base image
+FROM openjdk:17-jdk-alpine
+
+# metadata
+LABEL maintainer="your-email@example.com"
+LABEL version="1.0"
+LABEL description="A simple Java application"
+
+# working directory
+WORKDIR /app
+
+# Copy source code into the container
+COPY src/Main.java /app/Main.java
+
+# Compile the Java code
+RUN javac Main.java
+
+# Run the Java application when the container starts
+CMD ["java", "Main"]
+------------------------------------
+-> docker build -t java-app . -> for building the image
+-> docker run java-app -> for running app
+   ------ if we want to update anything in source code of progeram so we need to recreate the docker build and then again run by using same command 
+------------------------------------this is for python 
+FROM python:3.7
+WORKDIR /app
+COPY . .
+RUN pip install -r requirment.txt
+ENTRYPOINT [ "python","run.py"]
+--------------------------------------
+-> docker logs container-id -> it will show the logs of the container
+-> docker attcah container-id -> it will regularly show the logs 
+
+
+
+
+
+
 
