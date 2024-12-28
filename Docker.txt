@@ -13,6 +13,7 @@ docker architecture -> docker engin -
 -> docker ps -show all contaier list 
 -> docker images -show all the images 
 -> docker login -login 
+-> docker ps -a -> for see exited containers list 
 -> for login using personal access token -> your profile > account setting > persnal access token > paste it in terminal
 -> dockerfile-> docker image -> container
 -> docker pull hello-world -for download sample image from internet 
@@ -59,6 +60,27 @@ ENTRYPOINT [ "python","run.py"]
 --------------------------------------
 -> docker logs container-id -> it will show the logs of the container
 -> docker attcah container-id -> it will regularly show the logs 
+-> docker exec -it container-id bash -> interactive terminal  
+-----------------------------------------------------------------------------------------------------
+--Docker Network--
+-> host 
+-> default Bridge
+-> user defined bridge ( cutom bridge )  
+-> none ( isolated  no access to any thing ) 
+-> MACVLAN (Docker swam )(cluster )  -> communicate between two mac address 
+-> IPVLAN
+-> Overlay
+-------------------------
+-> Docker network ls ->  list of all network 
+-> docker inspact custom-network-name -> for checking the details of custop natwork 
+-> docker network create mynetwork -d bridge -> create custom bridge network
+-> 
+connection of tier tier network 
+-> go to git and clone two tier flask app in project folder 
+-> use same command for build 
+-> docker run -d -p 5000:5000 -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_DB=devops flask-app:latest
+-> docker run -d flask-app --network flask-app  -> for running the flask in a custom network 
+
 
 
 
