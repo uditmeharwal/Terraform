@@ -1,6 +1,8 @@
+--introduction to the docker--
 docker create the environment where we can run our application , it is open source tool , made by dot cloud 
 virtualization vs containerization -> in virtualization we use v.m and in contanirization we use docker ,podma ,containerd
-docker engin use host operating system to run app , it is very light weight 
+docker engin use host operating system to run app , it is very light weight
+--docker architecture--
 docker architecture -> docker engin - 
                     -> docker demon - it help to manage the containers -> demon use container d  in backed -> it is a tool  
                     -> docker cli -  command line interface 
@@ -19,8 +21,11 @@ docker architecture -> docker engin -
 -> docker pull hello-world -for download sample image from internet 
 -> docker run hello-world - for running the image 
 -> docker rmi image-name -delete images 
+-> docker rmi -f $(docker images -aq ) -> it will delete all images 
 -> docker stop container-id -stop the container 
 -> docker start container-id -start the container 
+-> docker restart container-id - restart the container 
+
 -----------------------------------------------------------------------------
 make a docker file -it is the file in which a set of instruction is available
 -> create a folder name "project " and open it in terminal 
@@ -75,14 +80,80 @@ ENTRYPOINT [ "python","run.py"]
 -> docker inspact custom-network-name -> for checking the details of custop natwork 
 -> docker network create mynetwork -d bridge -> create custom bridge network
 -> 
-connection of tier tier network 
+connection of tier-tier network 
 -> go to git and clone two tier flask app in project folder 
 -> use same command for build 
 -> docker run -d -p 5000:5000 -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_DB=devops flask-app:latest
 -> docker run -d flask-app --network flask-app  -> for running the flask in a custom network 
 
+-------------------------------------------------------------------------------------------------------Docker Volumes and Storage--it help to prevent the data lose from the storage which is of any app 
+-> docker volume ls -show existing volumes 
+-> docker volume create sample-volume  -create a volume
+-> docker inspect sample-volume -show the location of volume 
+-> docker run -v sample-volume:/var/lib.mysql -attach volume to the container 
 
+---------------------------------------------------------------------------------------------------
+--Docker Compose--it help in automate the things , it is configuration file written in yml(yet another markup language where we pass the key and values 
+------------------------
+--syntax--
+version: "3.8"
 
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devops
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./message.sql:/docker-entrypoint-initdb.d/message.sql  
+    networks:
+      - twotier
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  flask-app:
+    build:
+      context: .
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: devops
+    depends_on:
+      - mysql
+    networks:
+      - twotier
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  twotier:
+-----------------------
+steps to do in docker composer 
+-> vim docker-composer -> creste the file name "docker-composer" and enter the step of code 
+-> sudo apt-get install docker-compose-v2 -> install the requirments of "docker-compose"
+-> docker compose up -> to run the file we use this command  
+-> dokcer compose up -d -> it help to run the code in backend and create all the data 
+-> docker compose down -> stop all the commands 
+-----------------------------------------------------------------------------------------------------> Docker Registry-- to push and tag our container we use registry
+-> docker system prune -- use to delete all the containers and images 
+-> docker image tag image-name
 
 
 
