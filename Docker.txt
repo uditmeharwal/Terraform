@@ -153,11 +153,46 @@ steps to do in docker composer
 -> docker compose up -> to run the file we use this command  
 -> dokcer compose up -d -> it help to run the code in backend and create all the data 
 -> docker compose down -> stop all the commands 
------------------------------------------------------------------------------------------------------> Docker Registry-- to push and tag our container we use registry
+---------------------------------------------------------------------------------------------------
+-> Docker Registry-- to push and tag our container we use registry
 -> docker system prune -- use to delete all the containers and images 
 -> docker image tag image-name - dockre image tag app:latest uditmeharwal/app:latest -> this is the proper way to write a tagging your account name should be mentioned before app name 
 -> docker push uditmeharwal/app :latest  -this is how we can push app  
+--------------------------------------------------------------------------------------------------
+-- Multi stage docker buiding --
+# Stage 1: Build Stage
+FROM python:3.11-slim  as build-stage
 
+# Set working directory for the build stage
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install dependencies (only the build dependencies needed to install Python packages)
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Runtime Stage
+FROM python:3.11-slim as runtime-stage
+
+# Set working directory for the runtime stage
+WORKDIR /app
+
+# Copy only necessary files from build stage (no need for the entire build environment)
+COPY --from=build-stage /app /app
+
+# Install runtime dependencies (if necessary)
+# For example, install system dependencies needed for your app (e.g., database client libraries)
+# RUN apt-get update && apt-get install -y libpq-dev  # Example for PostgreSQL
+
+# Copy the application code into the container
+COPY . .
+
+# Expose the port the app will run on
+EXPOSE 5000
+
+# Set the default command to run the application
+CMD ["python", "app.py"]
 
 
 
