@@ -159,7 +159,7 @@ steps to do in docker composer
 -> docker image tag image-name - dockre image tag app:latest uditmeharwal/app:latest -> this is the proper way to write a tagging your account name should be mentioned before app name 
 -> docker push uditmeharwal/app :latest  -this is how we can push app  
 --------------------------------------------------------------------------------------------------
--- Multi stage docker buiding --
+-- Multi stage docker buiding -- help to redue work load and size of file is reduce 
 # Stage 1: Build Stage
 FROM python:3.11-slim  as build-stage
 
@@ -194,5 +194,7 @@ EXPOSE 5000
 # Set the default command to run the application
 CMD ["python", "app.py"]
 
+------------------------------------------------------------------------------------------------------------------
+-- Monitoring and loggin in docker --
 
 
