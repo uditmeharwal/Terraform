@@ -1,1 +1,18 @@
-
+it is an orchestration tool . it is also called k8s
+monolyth - it is the application in which all the application included in a single application , it is very hard to manage , it is a single repository 
+micro services -it is the collection of different component of an application which are devided according to their work , and incase any service may not working so we can maanage this without stoping the app 
+for managing docker relaeted service we use kubernetes 
+In this we can handel many coontainers or we can say we are working on a cluster 
+--------------------------------------------------------------------------
+--Architecture of kubernetes--
+scheduler - it manage all time related activites and manage all schedules 
+api server -it help to  communicate with worker leve 
+controller manager - it is the head manager and manage all the activities 
+pods -pods is the place where containers are running 
+etcd - it is the database of the kubernetes
+kublet - low level manager , it work as worker node 
+service proxy 
+kubectl - help to control and instruct to hole cluster 
+------------------------------------------------------------------------
+using kubernetes in ec2 (kind cluster )  --> follow kubestarter repo in shubham londhe github 
+- create instance and ssh this 
