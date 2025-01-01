@@ -198,8 +198,10 @@ CMD ["python", "app.py"]
 -- Monitoring and loggin in docker --
 -> docker log image id 
 nohup command use to save all logs in a file 
----------------------------------------------------------------------------------------------------------------------------project 1 :- 3 tier application with docker compose
+---------------------------------------------------------------------------------------------------------------------------
+project 1 :- 3 tier application with docker compose
 --------------------------------------------------------
+-> expensies tracker app is use and it is written in java 
 --------------------------------------------------------
 project 2 :- Deploying a web app with Nginx and My sql 
 -------------------------------------------------------
@@ -207,8 +209,13 @@ project 2 :- Deploying a web app with Nginx and My sql
 -> ngnix -django -mysql -three technologies are use in this project so we need to create 3 containers 
 -> open git hub and download django-notes-app gir repo from shubhamlondhe and download it 
 -> 
-
-
+-------------------------------------
+Docker scout
+it help in images scanning , check is there any security threat in your app 
+-> docker scout quickview container images 
+Docker init
+it create ready made templet file of (docker file , docker composer ) by choosing the language
+-> docker init 
 
 
 
