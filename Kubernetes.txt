@@ -14,5 +14,56 @@ kublet - low level manager , it work as worker node
 service proxy 
 kubectl - help to control and instruct to hole cluster 
 ------------------------------------------------------------------------
-using kubernetes in ec2 (kind cluster )  --> follow kubestarter repo in shubham londhe github 
-- create instance and ssh this 
+kubernetes cluster 
+-> kubeadm - we use two or more instance and attach them together and make a cluster , it is very expensive  
+-> minikube (local system )
+-> kind cluster -> kubernetes in docker 
+-> EKS /AKS -> Elastic kubernetes service it is online cloud service 
+------------------------------------------------------------------------
+kind cluster 
+-> create an instance in aws and ssh it in system 
+-> open kubestarter repositary in git hub and open kind cluster 
+-> create a file install.sh and paste the command in it and give them full prmission and  run it in system 
+-> install docker in your system 
+-> kubectl version -> show version 
+-> kind --version -> show version 
+-> now create a kubernetes cluster 
+-> check second step in git repo and create a config.yml file and paste the code for cluster in it 
+-> 
+---------------------------------------
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+
+nodes:
+- role: control-plane
+  image: kindest/node:v1.31.2
+- role: worker
+  image: kindest/node:v1.31.2
+- role: worker
+  image: kindest/node:v1.31.2
+- role: worker
+  image: kindest/node:v1.31.2
+  extraPortMapping:
+    -containerPort: 80
+    hostPort: 80
+    protocol: TCP
+
+    -containerPort: 443
+     hostPort: 443
+     protocol: TCP
+-------------------------------------------
+-> kind create cluster --config kind-cluster-config.yaml --name my-kind-cluster
+
+
+
+
+
+
+
+
+
+
+
+
+
+
