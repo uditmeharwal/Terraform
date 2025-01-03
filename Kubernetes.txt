@@ -14,13 +14,13 @@ kublet - low level manager , it work as worker node
 service proxy 
 kubectl - help to control and instruct to hole cluster 
 ------------------------------------------------------------------------
-kubernetes cluster 
+--- kubernetes cluster types -----
 -> kubeadm - we use two or more instance and attach them together and make a cluster , it is very expensive  
 -> minikube (local system )
 -> kind cluster -> kubernetes in docker 
 -> EKS /AKS -> Elastic kubernetes service it is online cloud service 
-------------------------------------------------------------------------
-kind cluster 
+--------------------------------------------------------------------------------------------------------------
+--------- kind cluster---- install and run  
 -> create an instance in aws and ssh it in system 
 -> open kubestarter repositary in git hub and open kind cluster 
 -> create a file install.sh and paste the command in it and give them full prmission and  run it in system 
@@ -29,29 +29,64 @@ kind cluster
 -> kind --version -> show version 
 -> now create a kubernetes cluster 
 -> check second step in git repo and create a config.yml file and paste the code for cluster in it 
--> 
----------------------------------------
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
+->
+                kind: Cluster
+                apiVersion: kind.x-k8s.io/v1alpha4
 
-nodes:
-- role: control-plane
-  image: kindest/node:v1.31.2
-- role: worker
-  image: kindest/node:v1.31.2
-- role: worker
-  image: kindest/node:v1.31.2
--------------------------------------------
+                nodes:
+                  - role: control-plane
+                    image: kindest/node:v1.31.2
+                  - role: worker
+                    image: kindest/node:v1.31.2
+                  - role: worker
+                    image: kindest/node:v1.31.2
+
 -> kind create cluster --config kind-cluster-config.yaml --name my-kind-cluster
 -> kubectl get nodes -> information about all nodes 
--> 
+-----------------------------------------------------------------------------------------------------------------
+------- mini kube --------- install and run 
+-> open git and shubham lodhe repo and open kubestarter 
+-> open mini kube installer file and follow steps 
+-> kubectl config user-context udit-cluster  ---> restore to the normal settings 
+-----------------------------------------------------------------------------------------------------------------
+------- kubeadm ----- install and run 
+- create 2 instance  and ssh them in systwm 
+- open kubeadm in git and follow commands
+-----------------------------------------------------------------------------------------------------------------
+- pod - one pod can run one or more containers 
+- namespace - the particular resources present in the namespace are belong to the particular group 
+- docker container -> pod -> deployment -> service -> user access
+- kubectl get ns -> show all name spaces 
+- kubectl get pods -> show podes 
+- kubectl create ns ngnix - create namespance ngenix 
+- kubectl run nginix --image=nginix -> it will create a pod of nginix
+- kubectl get pods - show list of pods 
+- kubectl delete pod nginix - delete the pods 
+- kubectl run nginix --image=nginix -n nginix - create th pod in particular name space 
+- kubectl get pods -n nginix - list of the pods in the nginix name space 
 
-
-
-
-
-
-
+- we can create all the pods ,deloyment , service through yml file which is called manifest file 
+      -create a file namespace.yml
+          -kind: Namespace
+           apiVersion: v1 
+           metadata: 
+              name: nginix
+      -save the file and use command "kubectl apply -f namespace.yml"
+-now we create a pod 
+    --create a file pod.yml 
+        kind: pod 
+        apiVersion: v1 
+        metadata: 
+          name: nginix-pod 
+          namespace: nginix 
+        spec: 
+          containers: 
+          - name: nginix
+            image: nginix:latest
+            ports: 
+            - containerPost: 80
+      - again use command "kubectl apply -f pod.yml"
+-kubectl exec -it nginix-pod -n nginix -- bash     - with this we can enter inside the pods 
 
 
 
