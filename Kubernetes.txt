@@ -219,15 +219,20 @@ parallelism: 1
 kind: CronJob
 apiVersion: batch/v1
 metadata:
-  name: hello
+  name: minutUpdate e-backup
+  namespace: nginix
 spec:
   schedule: "* * * * *"
   jobTemplate:
     spec:
       template:
-        spec:
-          containers:
-          - name: hello
+        metadata:
+          name: hello
+            labels:
+              app: hello
+          spec:
+            containers:
+            - name: hello
             image: busybox:1.28
             imagePullPolicy: IfNotPresent
             command:
@@ -236,7 +241,10 @@ spec:
             - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
 
-      
+- cron guru - it is site use for scheduling the time 
+- now apply
+
+---------------------------------------------------------------------------------------STORAGE
 
 
 
