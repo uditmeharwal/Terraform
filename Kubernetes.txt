@@ -187,7 +187,56 @@ spec:
 
 - job - the task done by single container
  - create job.yml
+      
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: demo-job
+  namespace: nginix
+spec:
+complition: 1
+parallelism: 1
+  template:
+    metadata:
+      name: demo-job-pod
+      labels:
+        app: batch-task
+    spec:
+      containers:
+      - name: batch-container
+        image : busybox: latest
+        command: ["sh", "-c" ,"echo hello ! && sleep 10"]
+        restartPolicy: never
 
+- now apply 
+- kubectl get job -n nginix  - check job status 
+- kubectl logs pod/demo-job -n nginix - give out tht log 
+
+-cron job - if the particular task run on any specific time . following a particular schedula and run the command 
+
+-create cronJob.yml
+      
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: hello
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+
+      
 
 
 
