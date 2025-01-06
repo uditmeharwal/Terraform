@@ -267,7 +267,7 @@ spec:
                 path: /mnt/data
 - now apply command
  -kubectl get pv - show the list of persistant volume 
-after create the volume we need to attach it to app
+after create the volume we need to attach it to local system 
 -vim persestent volumeclaim.yml -help to claim the volume 
 
 
@@ -286,8 +286,40 @@ after create the volume we need to attach it to app
 - apple this in system
 -kubectl get pvc -show list of pvc 
 
+now we use this volume in our app by applying volume mouunt command in 
 
+open deployment.yml 
 
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginix-dep-pod 
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+          volumeMounts:
+            - mountPath : /var/www/html
+              name: local-pvc
+          volumes: 
+            - name: my-volume
+              persistentVolumeClaim:
+                  claimName: local-pvc
+- now apply 
 
     
 persistant volume clame 
