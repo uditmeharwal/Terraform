@@ -244,7 +244,53 @@ spec:
 - cron guru - it is site use for scheduling the time 
 - now apply
 
----------------------------------------------------------------------------------------STORAGE
+-------------------------------------------------------------------------------------
+--STORAGE--
+
+--persistant volume-- 
+
+-create persistant volume.yml
+        kind: PersistentVolume
+        apiVersion: v1
+        metadata:
+            name: local-pv
+            labels:
+              app: local
+        spec:
+            capacity
+              storage: 1Gi
+            accessModes:
+              -ReadWriteOnce
+            persistentVolumeRFeclaimPolicy:Retain
+            storageClassName: local-storage
+            hostPath:
+                path: /mnt/data
+- now apply command
+ -kubectl get pv - show the list of persistant volume 
+after create the volume we need to attach it to app
+-vim persestent volumeclaim.yml -help to claim the volume 
+
+
+  kind: PersistentVolumeClaim
+  apiVersions: v1
+  metadata: 
+    name: local-pvc
+  spec: 
+    accessModes:
+      -ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  StorageClassName: local-storage 
+
+- apple this in system
+-kubectl get pvc -show list of pvc 
+
+
+
+
+    
+persistant volume clame 
 
 
 
