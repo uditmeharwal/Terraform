@@ -397,6 +397,80 @@ it is traffic rerouting tool in which we can create routes for the links link /m
 - now expose the app to the public 
 - now the app is online 
 .............................................................
+ -- Stateful sets --
+- mainly use in databases
+- firstly we create a new namespace called mysql
+  create file namespace.yml 
+      kind: NamesSpace        
+      apiVersion v1
+      metadata:
+          name: mysql 
+-now apply it 
+
+- now create statefulsets.yml 
+      kind: StatefulSet
+      apiVersion: apps/v1
+      metadata: 
+        name: mysql-statefulset
+        namespace: mysql
+      spec:
+        serviceName: mysql-service
+        replicas: 3
+        selector:
+            matchLabels:  
+                app: mysql
+     template:
+            metadata:
+              labels:
+                app: mysql
+        spec:
+          containers:
+          - name: mysql
+            image: sql:8.0
+            ports:
+            - containerPort: 3306    
+            env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: devops
+           VolumeMount:
+            -name: mysql-data
+            mountpath: /var/lib/mysql
+          VolumeClaimTemplates:
+          - metadata:
+              name: mysql-data
+             spec:
+              accessMode: [ReadWriteOnce]
+              resources:
+                requests:
+                    storage: 1Gi
+
+- now create service file for stateful create service.yml
+        kind: Service
+        apiVersion: v1
+        metadata:
+            name: mysql-service
+            namespace: mysql
+        spec:
+          clusterIP: none 
+          selector:
+            app: mysql
+          ports:
+          - name: mysql
+            protocpol: TCP
+            port: 3306
+            targetPort: 3306
+
+- now apply service
+-headless service - which cluster ip is none  means outer public cannot access it 
+- kubectl exec -it mysql-statefulset-0 -n mysql --bash - we can enter instde mysql pod 
+- kubectl delete pod mysql-statefulset-0 -n mysql   -delete the pod my sql 
+
+-- configMaps -- 
+
+ 
+           
 
 
 
