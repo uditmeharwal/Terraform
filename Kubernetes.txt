@@ -324,8 +324,8 @@ spec:
 - open persistent volume claim.yml and namespace : ngiix
 - now again apply both  
 
-    
-
+--------------------------------------------------------------------------------    
+-- Networking --
 Service - it is use to access the pods information to the public user 
 - create service.yml
     
@@ -358,6 +358,8 @@ it is traffic rerouting tool in which we can create routes for the links link /m
       metadata: 
         name: nginix-notes-ingress
         namespace: nginix 
+        annotations:
+            nginix.ingress.kubernetes.io/rewrite-target: /
       spec:
         rules:
           - http: 
@@ -370,14 +372,14 @@ it is traffic rerouting tool in which we can create routes for the links link /m
                         port: 80 
                           number: 0
                   - pathType: Prefix
-                    path: /app
+                    path: /
                     backend:
                       service:
                           name:notes-app-service
                           port: 
                             number:8000
   - now apply 
-
+- kubectl port-forward service/ingress-nginix-controller -n ingress-nginix 8080:80 --address=0.0.0.0 for ingress controller  
                 
 .............................................................
 --- django notes app mini project --
