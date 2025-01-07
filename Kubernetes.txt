@@ -320,15 +320,81 @@ spec:
               persistentVolumeClaim:
                   claimName: local-pvc
 - now apply 
+- open persistent volume .yml  and add namespace : nginix 
+- open persistent volume claim.yml and namespace : ngiix
+- now again apply both  
 
     
-persistant volume clame 
 
+Service - it is use to access the pods information to the public user 
+- create service.yml
+    
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginix-service
+  namespace: nginix
+spec:
+  selector:
+    app: nginix
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
 
+-- now apply 
+- kubectl port-forward service/nginix-service -n nginix 80:80  --address=0.0.0.0 - this command will allow us to access the nginix publically 
 
+---Ingress---
+it is traffic rerouting tool in which we can create routes for the links link /movie /game divert to different links 
 
+-ingress controller - help in routing in cluster level 
+-- open kind documentation and open ingress section and follow 
+-kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
+-create ingress.yml 
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata: 
+        name: nginix-notes-ingress
+        namespace: nginix 
+      spec:
+        rules:
+          - http: 
+              paths: 
+                -pathType: prefix
+                  path: /nginix
+                    backend: 
+                      service:
+                        name: nginix-service
+                        port: 80 
+                          number: 0
+                  - pathType: Prefix
+                    path: /app
+                    backend:
+                      service:
+                          name:notes-app-service
+                          port: 
+                            number:8000
+  - now apply 
 
-
+                
+.............................................................
+--- django notes app mini project --
+- copy git django  ote app 
+- create image using docker
+- login in docker hub 
+- create tocken in docker hub for login 
+- login in system 
+- tag the image 
+- push the image in docker hub 
+- now create namespace.yml
+- now create deployment .yml
+- now create service .yml 
+- first apply namespace , then deployment , then service 
+- now expose the app to the public 
+- now the app is online 
+.............................................................
 
 
 
