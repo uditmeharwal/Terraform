@@ -431,7 +431,10 @@ it is traffic rerouting tool in which we can create routes for the links link /m
             - containerPort: 3306    
             env:
             - name: MYSQL_ROOT_PASSWORD
-              value: root
+              valueFrom: 
+                SecretKeyRef:
+                    name: mysql-secret
+                    key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               value: devops
            VolumeMount:
@@ -486,7 +489,21 @@ now open statefulfile and change  the keyword value to this given below
             name: mysql-config-map
             key: MYSQL_DATABASE
             
+-- secrets --
+if we want to hide passwords and encript the passwords so we use secret .yml file 
+- create a file secret.yml
+        apiVersion: v1
+        kind: Secret
+        metadata: 
+            name: mysql-secret
+            namespace: mysql 
+          data:
+            MYSQL_ROOT_PASSWORD: root 
+--- we can not directly enter the password here we need to convert it into base64 for the we use 
+- echo "your_password" | base64
+this will give an output and we use that output and paste it in password place in secret file 
 
+-- now we need to define secret file in our stateful file like of config Map file  and then apply secret file 
 
 
 
