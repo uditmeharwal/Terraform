@@ -504,7 +504,7 @@ if we want to hide passwords and encript the passwords so we use secret .yml fil
 this will give an output and we use that output and paste it in password place in secret file 
 
 -- now we need to define secret file in our stateful file like of config Map file  and then apply secret file 
-
+ 
 
 
 
