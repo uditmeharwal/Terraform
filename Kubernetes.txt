@@ -468,9 +468,24 @@ it is traffic rerouting tool in which we can create routes for the links link /m
 - kubectl delete pod mysql-statefulset-0 -n mysql   -delete the pod my sql 
 
 -- configMaps -- 
+it is the file which is use to store the data related to the configurations of all the things 
+       create a file  configMap.yml
+          kind: ConfigMap
+          apiVersion: v1 
+          metadata: 
+              name: mysql-cofig-map
+              namespace: mysql
+          data: 
+            MYSQL_DATABASE: devops 
+-- now apply this 
 
- 
-           
+now open statefulfile and change  the keyword value to this given below 
+
+    use valueFrom: 
+            configMapkeyRef:
+            name: mysql-config-map
+            key: MYSQL_DATABASE
+            
 
 
 
