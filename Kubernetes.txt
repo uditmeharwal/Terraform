@@ -571,7 +571,11 @@ mainly use in stateful application
 -KEDA - kubernetes event driven auto scaling 
 it is very lessly using service in industry 
 keda use both hpa and vpa on the basis of type of application and matrics of the application 
-matrics - quantifiable resources number 
+
+matrics - quantifiable resources number .inform about resource use 
+- minikube addons enable metrics -server  this comand is for minikube to use metrics 
+- for apply in kind cluster we use 
+
 
 
 
