@@ -505,10 +505,39 @@ this will give an output and we use that output and paste it in password place i
 
 -- now we need to define secret file in our stateful file like of config Map file  and then apply secret file 
  
+-----------------------------------------------------------------------------------------------------------------
+ --- Scaling and scheduling ---
 
+-- Resource quotas and limits - resource allocation (ram , memory to any specific pod ) 
+    it is written in deployment.yml 
+          in the containers section 
+            resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
 
+- now apply deployment 
 
+----Probes --
+types
+- liveness probe - it will check that our probe is live or not 
+      - this will apply on deployment file under the containerPort section 
+          livenessProbe:
+              httpGet:
+              path: /
+              port: 8000
 
+- readiness probe - check tat it is ready or not 
+            readinessProbe:
+                httpGet:
+                path: /
+                port: 8000
+- startup probe -
+
+----Taints/Tolerations---
 
 
 
