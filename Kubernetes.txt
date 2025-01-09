@@ -538,11 +538,40 @@ types
 - startup probe -
 
 ----Taints/Tolerations---
+taint is the way to telling cluster that you are not allow to scheduled a pod on particular worker node 
+toleration - if any node is tainted it allow us to scheduled the pod on particular node 
+- kubectl taint node node-name prod=true:NoSchedule this connand use for taint the pod and cancel all the scheduling for the pod 
+- kubectl taint node node-name prod=true:NoSchedule- for removing all taint we use minus at end 
+
+how to use tainted node 
+
+open pod.yml and enter after containeraPort
+        tolerations:
+        - key : "prod"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+- now apply pod 
+
+
+Autoscaling and autohealing is one of the important work of the kubernetes and HPA and VPA ara part of this 
+
+AutoScaling- as load increase the pods capasity and nuber will also increase 
+-HPA - horizontal pod auto scaling 
+ in this if the load increase the replicas of the pod create and number of pods increase 
 
 
 
+ 
 
+-VPA - vertial pod auto scaling
+in this if the load increase then the pod increase their resources and capacity they do not replicate 
+mainly use in stateful application 
 
+-KEDA - kubernetes event driven auto scaling 
+it is very lessly using service in industry 
+keda use both hpa and vpa on the basis of type of application and matrics of the application 
+matrics - quantifiable resources number 
 
 
 
