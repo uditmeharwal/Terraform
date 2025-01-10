@@ -560,10 +560,6 @@ AutoScaling- as load increase the pods capasity and nuber will also increase
 -HPA - horizontal pod auto scaling 
  in this if the load increase the replicas of the pod create and number of pods increase 
 
-
-
- 
-
 -VPA - vertial pod auto scaling
 in this if the load increase then the pod increase their resources and capacity they do not replicate 
 mainly use in stateful application 
@@ -631,7 +627,37 @@ matrics - quantifiable resources number .inform about resource use
                 targetPort: 80
             type: clusterIP
 
+- kubectl port-forward service/apache-service -n apache 82:80 --address=0.0.0.0 for running in public 
+- kubectl scale depolyment apache-deployment -n apache --replicas=3 - made replica mannually 
+ 
+--HPA-- autoscaling 
+- create a file HPA.yml
+        apiVersion: autoscaling/v2
+        kind: HorizontalPodAutoscaler
+        metadata: 
+            name: apache-hpa 
+            namespace: apache
+            spec:
+              scaleTargetRef:
+                Kind: Deployment 
+                name: apache-depployment 
+                apiVersion: app/v1
 
+              minReplicas: 1
+              maxReplicas: 5
+
+              matrics: 
+               -type : Resource
+                resource: 
+                    name: cpu 
+                    target:    
+                      type : utilization 
+                      averageUtilization: 5 
+now apply it 
+
+--- VPA --
+for this we need to download vpa file from git repo kubernetes/ autoscaler 
+now use cd autoscaler/vertical-pod-autoscaler 
 
 
 
