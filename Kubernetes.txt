@@ -574,7 +574,64 @@ keda use both hpa and vpa on the basis of type of application and matrics of the
 
 matrics - quantifiable resources number .inform about resource use 
 - minikube addons enable metrics -server  this comand is for minikube to use metrics 
-- for apply in kind cluster we use 
+- for apply in kind cluster we use  git repo kubestarter and in it we use HPA_VPA  and follow the instructions 
+- kubectl top nodes - show the matrics  
+- kubectl top pod - for checking the pod metrics 
+
+
+-- apache-- it is online app which allow userf to deploy app in web 
+- create namespace.yml for apache and apply
+          kind: Namespace
+          apiVersion: v1
+          metadata: 
+              name: apache
+              
+- create deployment.ynl for and apply 
+        kind: Deployment
+        apiVersion: app/v1
+        metdata:  
+            name: apache-deployment
+            namespace: apache
+        spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                  app: apache
+            templet:
+                metadata:
+                    name: apache\
+                    labels:
+                      app: apache 
+              spec:
+                  containers:
+                - name: apace
+                  image: httpd: latest
+                  port:
+                - containerPort: 80 
+                resource :
+                  requests:
+                    cpu: 100m
+                    memory: 128Mi
+                  limits:
+                    cpu: 200m
+                    memory: 256Mi
+- now check kubectl get pods -n apache
+- create service.yml  and apply it 
+          kind: Service
+          apiVersion: V1
+          metadata:
+            name: apache-service
+            namespace: apache
+          spec:
+            selector:
+                app: apache
+            ports: 
+              - protocol : TCP
+                port: 80 
+                targetPort: 80
+            type: clusterIP
+
+
 
 
 
