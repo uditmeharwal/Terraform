@@ -657,8 +657,26 @@ now apply it
 
 --- VPA --
 for this we need to download vpa file from git repo kubernetes/ autoscaler 
-now use cd autoscaler/vertical-pod-autoscaler 
+- now use cd autoscaler/vertical-pod-autoscaler 
+- now install it using installation guide 
+- ./hack/vpa-up.sh 
+- vim  vpa.yml
+      kind: VerticalPodAutoscaler
+      apiVersion: autoScaling.k8s.io/v1
+      metadata:
+          name: apache-vpa
+          namespace: apache
 
+      spec:
+          targetRef:
+              name: apache-deployment
+              apiVersion: app/v1
+              kind: Deployment
+            updatePolicy: 
+              updateMode: "AutoScale"
+- now apply it 
+
+--- Node Affinity ---
 
 
 
