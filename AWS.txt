@@ -340,6 +340,8 @@ hot start help to reduce the bill
 environment variable  these are the abbrivitation form of full line which is use in code and can be mentioned in stort form 
 configrations > environment variables > create > key and value > save 
 
+Synchronous and asynchronous 
+- this is same as in javascript async await 
 
 
 
