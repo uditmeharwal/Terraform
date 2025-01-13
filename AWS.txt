@@ -346,6 +346,7 @@ Synchronous and asynchronous
 - aws lambda invoke --function name invocation-type-func output.txt
 we can only access async function using cli 
 - aws lambda invoke --function name invocation-type-func --invocation-type Event output.txt - for async run 
+- when we run the  lambda function on s3 then  the resulta output will get in async form  
 
 how to triger labbmbda function on s3 object 
 - click on add trigger -> select target -> select bucket -> event type select-> save 
