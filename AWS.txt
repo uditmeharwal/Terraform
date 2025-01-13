@@ -341,9 +341,14 @@ environment variable  these are the abbrivitation form of full line which is use
 configrations > environment variables > create > key and value > save 
 
 Synchronous and asynchronous 
+
 - this is same as in javascript async await 
+- aws lambda invoke --function name invocation-type-func output.txt
+we can only access async function using cli 
+- aws lambda invoke --function name invocation-type-func --invocation-type Event output.txt - for async run 
 
-
+how to triger labbmbda function on s3 object 
+- click on add trigger -> select target -> select bucket -> event type select-> save 
 
 
 
