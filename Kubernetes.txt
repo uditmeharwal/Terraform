@@ -679,6 +679,79 @@ for this we need to download vpa file from git repo kubernetes/ autoscaler
 --- Node Affinity ---
 the ability to assign a Kubernetes pod to a specific node or group of nodes in a cluster based on specific criteria.
 
+RBAC - Role based access control 
+ two types of access 
+namespace level - roles , role binding
+cluster level - cluster role , cluster binding 
+
+- kubectl auth whoami - give info of current user 
+- kubectl auth can-i get pods - show info yes or no 
+- kubectl auth can-i get deployment -n apache - show info in yes or no 
+--namespace level --
+- for roles and permissions we need to create role.yml file
+        
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: apache-manager
+  namespace: apache
+rules:
+- apiGroups: ["","apps","rbac.authorization.k8s.io/v1","batch"] 
+  resources: ["pods","deployment","service"]
+  verbs: ["get","apply","delete","create","patch","watch", "list"]
+
+- apply it using kubectl apply -f role.yml
+- kubectl get role -n apache - show the roles in apache namespace 
+
+now we need to create service-account.yml 
+
+          kind: ServiceAccount
+          apiVersion: v1
+          metadata:
+              name: apache-user
+              namespace: apache  
+- apply 
+- kubectl get serviceaccount -n apache - show list 
+- now we need to create role binding vim role-binding.yml 
+        kind: RoleBinding
+        apiVersion: rbac.authorization.k8s.io/v1
+        metadata:
+            name: apache-manager-rolebinding
+            namespace: apache
+        subjects:
+        - kind: User
+          name: apache-user
+          apiGroup: rbac.authorization.k8s.io
+         roleRef:
+              kind: Role 
+              name: apache-manager
+              apiGroup: rbac.authorization .k8s.io
+- apply it 
+
+- kubectl auth can-i get pods --as=apache-user -n apache
+
+--- cluster level --- 
+- firstly we need to create a dashboard and we use github kubestarter / kind-cluster for that and follow all instructions 
+
+this will create a dashboard and show all the information on the browser 
+
+
+--- custom Resource Defination (crd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
