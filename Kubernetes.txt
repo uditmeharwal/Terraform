@@ -737,11 +737,73 @@ this will create a dashboard and show all the information on the browser
 
 
 --- custom Resource Defination (crd)
+the resource which are not presnt in kubernetes liberary and which are created customly are crd 
+
+- create file devops-crd.yl
+
+      kind CustomResourceDefination
+      apiVersion: apiextension.k8s.io/v1
+      metadata:
+          name: devopsbatches.trainwithshubham.com
+      spec:
+          group: trainwithshubham.com
+          names:
+            plural: devopsbatches
+            singular: devopsbatch
+            kind: DevopsBatch
+            shortNames:
+              - batches
+              - tws 
+          scope: Namespaced
+          versions: 
+          - name: v1
+            served: true
+            storage: true
+            schema: 
+                openAPIV3Schema:
+                    type: object
+                    properties:
+                        spec: 
+                          type: object
+                          properties: 
+                            name:
+                              type: string
+                              description: this is the devops batch 
+                            duration:
+                                type: string
+                                description: this is the time of batch 
+                            mode:
+                              type: string
+                              description: this the mode of betch 
+                            platform:
+                              type: string
+                              description: this is the platform of the batch 
+                              
+- apply it 
+- kubectl get crd - show list of crd 
+
+- create file devops-cr.yml 
+
+kind: DevOpsBatch 
+apiVersion: trainwithshubham.com/v1
+metadata:
+    name: junoon-batch-9
+spec:
+    name: Devops-zero to hero junoon batch 9
+    duration: 3 months 
+    platform: trainwithshubham.com
+    mode: Live as always
+
+now apply it 
 
 
+kubernetes api - ( kopf ) ->  it is a python framework which is use to write kubernetes in python 
 
 
-
+not ask in interviews 
+- crd 
+- kubernetes api 
+- operators
 
 
 
