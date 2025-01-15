@@ -677,6 +677,8 @@ for this we need to download vpa file from git repo kubernetes/ autoscaler
 - now apply it 
 
 --- Node Affinity ---
+the ability to assign a Kubernetes pod to a specific node or group of nodes in a cluster based on specific criteria.
+
 
 
 
