@@ -800,10 +800,51 @@ now apply it
 kubernetes api - ( kopf ) ->  it is a python framework which is use to write kubernetes in python 
 
 
-not ask in interviews 
+not ask  topics in interviews 
 - crd 
 - kubernetes api 
 - operators
+
+---- Helm ----
+helm is the package manager of kubernetes .Helm is an open-source tool that automates the deployment and management of applications in Kubernetes clusters. with that we dont need to write yml file for each step 
+
+- install of helm 
+- go to google type install helm 
+- follow script 
+- and run it 
+- now verify helm version 
+
+- helm create apache-helm - this automatically all the yml files which he need 
+- now go inside folder apache-helm 
+- sudo apt install tree -  now install this package for see structure of file  
+- tree - to see the structure use the command 
+- all the configuration files store in values.yml 
+- helm package apache-helm/ - create the package chart and save it 
+- helm install dev-apache apache-helm - this will deploy the file 
+- helm uninstall dev-apache - for remove the dev-apache this will delete all files 
+- helm install dev-apache apache-helm -n dev-apache --create-namespace - this is use to deply file with enter namespace 
+- kubectl get pods -n dev-apache - show the list of pods in dev-apache 
+- helm install prod-apache apache-helm -n prod-apache --create-namespace - for production 
+
+---- if we change anything in the value .yml after deployment so to apply this we need to follow these step 
+- vim apache-helm/chart.yml
+- change the appversion value last digit to increase order( like app version increases )
+- helm package apache-helm  - to apply  
+- helm upgrade prd-apache  ./apache-helm -n prod- apache - now this will apply to prod-apache namespace 
+- helm rollback prod-apache 1 -n prod-apache -- for rollback to previous version 
+
+
+--- example of node js app deploy using helm 
+
+- helm create node-js-app
+- go inside folder 
+- tree
+- change values of port and target port in service.yml file  
+- change values of port and target port in values.yml file 
+- heln package node-js-app
+- helm install dev-node-js-app node-js-app -n dev-node --create-namespace
+- kubectl get svc -n dev-node 
+- kubectl port-forward svc/dev-node-js-8000:8000 -n dev-node --address=0.0.0.0
 
 
 
