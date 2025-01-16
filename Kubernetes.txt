@@ -845,7 +845,10 @@ helm is the package manager of kubernetes .Helm is an open-source tool that auto
 - helm install dev-node-js-app node-js-app -n dev-node --create-namespace
 - kubectl get svc -n dev-node 
 - kubectl port-forward svc/dev-node-js-8000:8000 -n dev-node --address=0.0.0.0
-
+--------------------------------------------------------------------------------------
+----Init Cntainer vs Sidecar Container----
+- To runthe container we required a precotaiiner which is called init container 
+-  
 
 
 
