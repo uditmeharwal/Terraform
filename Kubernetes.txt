@@ -847,8 +847,42 @@ helm is the package manager of kubernetes .Helm is an open-source tool that auto
 - kubectl port-forward svc/dev-node-js-8000:8000 -n dev-node --address=0.0.0.0
 --------------------------------------------------------------------------------------
 ----Init Cntainer vs Sidecar Container----
-- To runthe container we required a precotaiiner which is called init container 
--  
+- To run the container we required a precotaiiner which is called init container 
+- sidecar container is a helper container at run the things side by side 
+
+- vim init-container.yml
+      kind: Pod
+      apiVersion: v1
+      metadata:
+          name: init-test
+      spec:
+          initContainers:
+            - name: init-container
+              image: busybox:latest    
+              command: ["sh","-c", "echo 'Initialziation started ... ' ; sleep 10; echo 'Initization completed. '"]
+              
+          container:
+            - name: main-container
+              image: busybox:latest
+              command: ["sh","-c", " echo 'Main container started'"]
+now apply it 
+-
+
+
+- vim sidecar-container.yml
+        kind: Pod
+      apiVersion: v1
+      metadata:
+          name: sidecar-test
+
+      spec:
+          container:
+            - name: main-container
+              image: busybox:latest
+              command: ["sh","-c","while true;do echo 'Hello Dosto'>>/var/log/app.log; sleep 5; done"] 
+
+          - name: sidecar-container
+          
 
 
 
