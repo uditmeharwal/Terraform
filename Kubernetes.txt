@@ -876,14 +876,35 @@ now apply it
           name: sidecar-test
 
       spec:
+
+          volumes:
+          - name: shared-logs
+            emptyDir: {}
+          
           container:
+              # this is use to produce logs 
             - name: main-container
               image: busybox:latest
               command: ["sh","-c","while true;do echo 'Hello Dosto'>>/var/log/app.log; sleep 5; done"] 
+            volumeMounts:
+              - name: shared-logs
+                moutPath: /var/log/
 
+              # this is use to display logs
           - name: sidecar-container
+            image: busybox
+            command: ["sh","-c", "tail -f /var/log/app.log"]
+             volumeMounts:
+              - name: shared-logs
+                moutPath: /var/log/
+apply it 
           
+------ Servish mesh -------
 
+it provide us a gateway with which we can route our routes there is a tool istio which is use for service meshing 
+- istio is download from its official website 
+- follow the steps
+- istio uses envoy  which is a side car container / proxy that allow handle ingree routes 
 
 
 
