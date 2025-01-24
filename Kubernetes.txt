@@ -906,6 +906,30 @@ it provide us a gateway with which we can route our routes there is a tool istio
 - follow the steps
 - istio uses envoy  which is a side car container / proxy that allow handle ingree routes 
 
+------------------------------------------------------------------------------------------------------------------
+project 1 - chat application  3 tier application  frontend - reactjs backend - node js db - mongodb
+this project is done using minikube 
+create docker container -> pod ->  deployment -> service -> ingress
+- instsll and open vscode and then new terminal 
+- install minikube 
+- minikube start --driver=docker - this will start minikube 
+- import the chat app from github  iemafzalhassan / full-stack_chatApp 
+- go to docker hub and login this in system 
+- docker build -t udit/chatapp-backend:latest . - use this command for tagging the file 
+- docker push udit/chatapp-backend:latest
+- do this for front end also 
+- docker image tag <old> <new> - if we want to rename the tag 
+- now create a folder k8s and create a file namespace.yml - enter the code in namespace file  
+- kubectl create -f namespace.yml -  apply for first time we can use both command apply and create 
+- kubectl get ns - check namespace 
+- create backend-deployment.yml enter the code 
+- add container image name from docker hub for backend and frontend both 
+- create frontend-deployment.yml and change container image name 
+- create mongodb-deployment.yml and add container image to monogodb:latest
+- now create mongo-pvc.yml and copy it from internet 
+- create service file for all 
+- 
+
 
 
 
