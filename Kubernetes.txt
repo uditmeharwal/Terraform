@@ -928,7 +928,9 @@ create docker container -> pod ->  deployment -> service -> ingress
 - create mongodb-deployment.yml and add container image to monogodb:latest
 - now create mongo-pvc.yml and copy it from internet 
 - create service file for all 
-- 
+- follow steps from git hub account 
+------------------------------------------------------------------------------------------------------------------
+
 
 
 
