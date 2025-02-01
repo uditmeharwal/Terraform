@@ -1,1 +1,19 @@
 jenkins is an automation to which manages continious integration and continious deployment 
+installation of jenkins in local 
+- search jenkins install
+- run firstly  java installation command from jenkins step and then run  jenkins installation  commands 
+- now run sudo systemctl enable jenkins
+- run locally on http://localhost:8080 
+- now run sudo cat and the path and copy password and paste it in jenkins administrator pass  
+- click on suggested plugins 
+- now add you credencials 
+
+install jenking on aws 
+- create an instance of t2 micro ubuntu 
+- enable port 8080 through custom tcp in in your ip 
+- ssh it in locally 
+- now copy public ip of instance and add 8080 and remove s form https and seach  - http:// public ip of instance : 8080 
+- now run sudo cat and the path and copy password and paste it in jenkins administrator pass  
+- click on suggested plugins 
+- now add you credencials  
+
