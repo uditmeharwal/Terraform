@@ -1,0 +1,1 @@
+jenkins is an automation to which manages continious integration and continious deployment 
