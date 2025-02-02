@@ -17,3 +17,20 @@ install jenking on aws
 - click on suggested plugins 
 - now add you credencials  
 
+- pipeline - A DevOps pipeline is a series of automated processes and tools that help developers and operations teams build and deploy code to production. 
+- agents - agents are created in jenkins to distrbute the load in diffenet servers 
+
+-- CREATING AGENT USING AWS 
+#### AWS #####
+- create a ec2 named as agent  and ssh it by adding 8080 port  - now install java using jeckins site -  create ssh key using command 
+
+##### In master node #####
+- cd `/.shh - for accessing ssh folder 
+- ssh-keygen this command will create two keys one is public and other is private 
+- cat id - for read id 
+- copy public key and past it un agents ssh-authourization key in last line 
+- copy private key and past it in jenkins credentials 
+
+#### jenkins dashboard  ######
+- click on node - create a node - name the node , description , remote root directory -/home/ubuntu , label - agent name , launch method launch using ssh , enter host ip addrss of agent node , now enter credential key(private key ) which we have created in master node  , kind - ssh  ,id -ubunutu ,username -ubuntu ,non verification stretegy 
+
