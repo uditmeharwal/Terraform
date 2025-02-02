@@ -25,7 +25,7 @@ install jenking on aws
 - create a ec2 named as agent  and ssh it by adding 8080 port  - now install java using jeckins site -  create ssh key using command 
 
 ##### In master node #####
-- cd `/.shh - for accessing ssh folder 
+- cd ~/.shh - for accessing ssh folder 
 - ssh-keygen this command will create two keys one is public and other is private 
 - cat id - for read id 
 - copy public key and past it un agents ssh-authourization key in last line 
