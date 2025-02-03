@@ -96,11 +96,14 @@ now write pipeline
               }
              stage("Push to docker hub "){
                 steps{
-                    echo "pushing the image to socker hub "
-                    withCredentials([])
-                    sh "dokcer login -u uditmeharwal "
-                    sh "docker image tag notes-app:latest uditmeharwal/notes-app:latest"]
-                    sh "docker uditmeharwal/push notes-app:latest"
+                   withCredentials([usernamePassword(
+                    credentialsId:"dockerHubCreds",
+                    usernameVariable:"dockerHubUser", 
+                    passwordVariable:"dockerHubPass")]){
+                sh 'echo $dockerHubPass | docker login -u $dockerHubUser --password-stdin'
+                sh "docker image tag notes-app:latest ${env.dockerHubUser}/notes-app:latest"
+                sh "docker push ${env.dockerHubUser}/notes-app:latest"
+                }
                     
                 }
               }
@@ -115,3 +118,12 @@ now write pipeline
       }
 3. add 8000 port in your instance at custom tcp from anywhere  now the app is deployed 
 4. credentials binding -> manage jenkins > credentials > add > username of docker hub  > go to dockerhub and create access tocken and paste the password to the docker hub > id -dockerHubCred > create 
+
+---web hooks in git hub ---
+with this as we chnage our code in git hub then it will trigger the jenkins and the code will automatically deploy 
+1. fork the git hub repo 
+2. go to settings of repo click on webhook
+3. payload url - enter your jenkins url in it (http://ip:8080/github-webhook)
+4. disbale ssl 
+5. click on send me everything 
+6. 
