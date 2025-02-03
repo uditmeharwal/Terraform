@@ -119,11 +119,46 @@ now write pipeline
 3. add 8000 port in your instance at custom tcp from anywhere  now the app is deployed 
 4. credentials binding -> manage jenkins > credentials > add > username of docker hub  > go to dockerhub and create access tocken and paste the password to the docker hub > id -dockerHubCred > create 
 
----web hooks in git hub ---
+---web hooks in git hub ---also called coninious deployment 
 with this as we chnage our code in git hub then it will trigger the jenkins and the code will automatically deploy 
 1. fork the git hub repo 
 2. go to settings of repo click on webhook
-3. payload url - enter your jenkins url in it (http://ip:8080/github-webhook)
+3. payload url - enter your jenkins url in it (http://ip:8080/github-webhook/)
 4. disbale ssl 
 5. click on send me everything 
-6. 
+6. content type - xwwwform url encoaded 
+7. just enable check github hook trigger for GITscm polling  in project configration 
+
+#### Shared libraries  this are the libraries with which we can use existing code again and again in our pipline 
+- create a repo in git hub jenkins-shared -libraries 
+- now create a folder in it named vars/hello.groovy
+-  def call(){
+      echo "hello dosto "
+}
+- now go to jenkins -> dashboard -> manage jenkins -> system -> globle trusted pipelines 
+- name them -> default version - branch name of github ->prject repo - paste the url -> enter the pass and username of git in credentials 
+- now open your project in jekins and write in  pipline first line 
+      @Library("shared") _
+      pipeline{
+            agent{lable "agent-aws"}
+            stages{
+                  stage("hello"){
+                        steps{
+                              script{
+                                    hello()
+`                                   clone('giturl','main')
+                              }
+                        }
+                  }
+            }
+      }
+
+-create jenkins file in git and isert all the code as pr pipline -> go to pipline -> define -> pipeline script frmo scm -> git -> repo url - url of git -> branch main-> script path - file name 
+
+## user access control
+- create a role from user section 
+- install plugin (role based authorization stretegy ) 
+- security section -> authorization  - choose this to role based stretegies 
+- now open manage and assign role section 
+- add a role and gve the permissions 
+- now go to assign role and assign this role to the particular user 
