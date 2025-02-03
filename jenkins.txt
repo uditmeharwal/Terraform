@@ -76,7 +76,7 @@ now write pipeline
  this is what we need to do in project 
 -github clone > docker build and puch  > dokcer hub> ec2 
 
--- project steps -- prereq - install git  - docker  - kubectl in your master bracch in ec2 
+-- project steps -- prereq - install  - docker.io and  - sudo apt-get install docker-compose-v2  in your master bracch in ec2 
 1. copy the link of django app from git hub -(shubham londhe )
 2. pipeline{
           agent{}
@@ -98,9 +98,10 @@ now write pipeline
               stage("Deploy"){
                 step{
                     echo "this is deploying the code "
-                    sh "docker run -d -p 8000:8000 notes-app:latest"
+                    sh "docker compose up -d"
                 }
               }
           }
       }
-3. add 8000 port in your instance at custom tcp from anywhere  now the app is deployed  
+3. add 8000 port in your instance at custom tcp from anywhere  now the app is deployed 
+
