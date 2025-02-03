@@ -94,6 +94,16 @@ now write pipeline
                     sh "docker build -t notes-app:latest ."
                 }
               }
+             stage("Push to docker hub "){
+                steps{
+                    echo "pushing the image to socker hub "
+                    withCredentials([])
+                    sh "dokcer login -u uditmeharwal "
+                    sh "docker image tag notes-app:latest uditmeharwal/notes-app:latest"]
+                    sh "docker uditmeharwal/push notes-app:latest"
+                    
+                }
+              }
               
               stage("Deploy"){
                 step{
@@ -104,4 +114,4 @@ now write pipeline
           }
       }
 3. add 8000 port in your instance at custom tcp from anywhere  now the app is deployed 
-
+4. credentials binding -> manage jenkins > credentials > add > username of docker hub  > go to dockerhub and create access tocken and paste the password to the docker hub > id -dockerHubCred > create 
