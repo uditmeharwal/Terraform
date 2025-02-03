@@ -19,6 +19,7 @@ install jenking on aws
 
 - pipeline - A DevOps pipeline is a series of automated processes and tools that help developers and operations teams build and deploy code to production. 
 - agents - agents are created in jenkins to distrbute the load in diffenet servers 
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- CREATING AGENT USING AWS 
 #### AWS #####
@@ -33,4 +34,73 @@ install jenking on aws
 
 #### jenkins dashboard  ######
 - click on node - create a node - name the node , description , remote root directory -/home/ubuntu , label - agent name , launch method launch using ssh , enter host ip addrss of agent node , now enter credential key(private key ) which we have created in master node  , kind - ssh  ,id -ubunutu ,username -ubuntu ,non verification stretegy 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+#### use agent in pipeline 
+-pipeline {
+      agent{label "agent "} - here we enter our agent node name which we have created 
+now this file will run using agent node 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
+### Declarative pipeline - using djengo notes app 
+-check github project and paste project link 
+- check github hook trigger for GITscm polling 
+now write pipeline 
+      pipeline{
+          agent{}
+          stages{
+              stage("code"){
+                steps{
+                    echo "this cloning the code "
+                }
+              }
+              stage("Build"){
+                steps{
+                    echo "this is building the code "
+                }
+              }
+              stage("Test"){
+                steps{ 
+                    echo "this is testing the code  "
+                }
+              }
+              stage("Deploy"){
+                step{
+                    echo "this is deploying the code "
+                }
+              }
+          }
+      }
+
+-> for see the pipeling there is plugin which we need to download go to manager> plugins > download pipeline view > restart 
+
+ this is what we need to do in project 
+-github clone > docker build and puch  > dokcer hub> ec2 
+
+-- project steps -- prereq - install git  - docker  - kubectl in your master bracch in ec2 
+1. copy the link of django app from git hub -(shubham londhe )
+2. pipeline{
+          agent{}
+          stages{
+              stage("code"){
+                steps{
+                    echo "this cloning the code "
+                    git url: "https://github.com/LondheShubham153/django-notes-app.git", branch:"main"
+                    echo " cloning success"
+                }
+              }
+              stage("Build"){
+                steps{
+                    echo "this is building the code "
+                    sh "docker build -t notes-app:latest ."
+                }
+              }
+              
+              stage("Deploy"){
+                step{
+                    echo "this is deploying the code "
+                    sh "docker run -d -p 8000:8000 notes-app:latest"
+                }
+              }
+          }
+      }
+3. add 8000 port in your instance at custom tcp from anywhere  now the app is deployed  
