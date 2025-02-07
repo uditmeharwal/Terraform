@@ -4,3 +4,16 @@ Manage infrastructure automatically . teraform writtenin hashicorp config langua
 - now go to the terraform site and open linux section 
 - follow the steps and install the file 
  
+create a terraform file 
+- vim teraform.tf
+- resource "local_file" "devops" {
+    filename = "/home/udit-meharwal/teraform.txt"
+    content = "hello world"
+}
+
+- terraform validate -check the file 
+- terraform init - initialize the terraform
+- terraform plan - show the plane
+- terraform apply - apply the action 
+- terraform automatically create a folder .tfstate which contain all the logs and store them automatically 
+- 
