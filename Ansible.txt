@@ -15,11 +15,47 @@ Ansible is an open-source IT automation software that helps configure systems, d
         server_2 ansible_host = 192.183.203
         server_3 ansible_host = 192.345.342
 
-        [servers:vars]
+        [all:vars]
         ansible_python_interpreter = /usr/bin/python3
         ansible_ssh_private_key_file=/home/ubuntu/keys/ansible-master-key-demo.pem - enter the path where you have the key in master ec2 
 
-- ansible - 
+- ansible servers -m ping - ping to all the servers 
+- ansible servers -a "free -h" - resource consume show 
+- ansible -a " sudo apt udpate " - update all servers 
+- ansible-inventory --list -- see the list of all servers 
+
+## play book - it is a yml file it is the set of instruction to perform a specific task 
+- vim date_play.yml
+-        ~
+            name: date playbook
+            hosts: servers   - enter the group name of server where you want to run 
+            tasks: 
+               - name:  show date
+                 command: date
+               - name: show date again 
+                  command: date 
+
+- ansible-playbook -v date_play.yml
+
+# playbook for install and start nginix
+- vim nginix_play.yml
+-        ~
+            name: Install Nginix and start it 
+            hosts: servers
+            become: yes  - if we want to run any play book as root user so we need to do become : yes
+            tasks: 
+               - name: install nginix
+                  apt:
+                     name: Nginx
+                     state: latest
+               - name: Start Nginx
+                  service: 
+                     name: nginx
+                     state: started
+                     enabled: yes
+               
+
+
 
 
       
