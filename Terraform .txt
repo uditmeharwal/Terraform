@@ -1,1 +1,6 @@
-
+Manage infrastructure automatically . teraform writtenin hashicorp config language
+### installation 
+- create instance 
+- now go to the terraform site and open linux section 
+- follow the steps and install the file 
+ 
