@@ -18,7 +18,7 @@ create a terraform file
 - terraform automatically create a folder .tfstate which contain all the logs and store them automatically 
 - terraform state show - show the state 
 
-####terraform with docker
+####terraform with docker---------------------------------------------------------------------------------------
 
 terraform{
  required_providers{
@@ -44,6 +44,109 @@ port {
    external = 80
 }
 }
+--------------------------------------------------------------------------------------------------------------
+terraform variables 
+- vim variable.tf
+ variable "filename" {
+     default = "/home/udit-meharwal/devops.txt"
+     
+}
+
+ variable "content"{                         
+    default = "this is auto generated"
+}
+
+ variable "devops" {}  
+
+ variable "maptype" {                         
+   type = map
+   default = {
+"ccontent1" = "this is 1"
+"content2"  = "this is 2"
+   }
+ }
+
+variable "listtype" {
+type = list 
+default = {"/home/uditmeharwal/file1.txt","/homw/uditmeharwal/file2.txt"}
+}
+
+variable "objecttype" {
+type = object({
+    name = string
+    phone_no = number
+    address = list{string}
+})
+default ={
+name = "uditmeharwal"
+phone_no = "8267977123"
+address = ["a","b"]
+}
+}
+------------------------------------------------------------
+                                                    
+-vim main.tf
+resource "local_file" "devops-var" {
+     filename = var.filename
+     content = var.content
+                                                //  the variable which we have create in variable.tf file                                                               will fetch here
+}
+
+output "devops" {
+value = var.devops
+}
+
+resource "local_file" "devops-var" {
+     filename = var.filename
+     content = var.maptype["content1"]      // using map type data type 
+}
+
+resource "local_file" "devops" {
+filename = var.listtype[0]
+content = var.maptype["content1"] 
+}
+
+resource "local_file" "devops" {
+filename = var.listtype[0]
+content = var.objecttype.name
+content = var.objecttype.phone_no
+content = var.objecttype.address
+}
+--------------------------------------------------------------
+now init , apply it 
+- export TF_VAR_devops="udit meharwal" // using this command the value of devops variable is export
+  
+------------------------------------------------------------------------------------------------------------------
+terraform states
+- In this the computer generates a plan befor executing the file 
+- improve performance ,dependency management
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
