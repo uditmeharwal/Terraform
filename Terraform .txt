@@ -89,7 +89,7 @@ address = ["a","b"]
 resource "local_file" "devops-var" {
      filename = var.filename
      content = var.content
-                                                //  the variable which we have create in variable.tf file                                                               will fetch here
+                                                //  the variable which we have create in variable.tf file will fetch here                                                          
 }
 
 output "devops" {
@@ -120,6 +120,83 @@ now init , apply it
 terraform states
 - In this the computer generates a plan befor executing the file 
 - improve performance ,dependency management
+
+------------------------------------------------------------------------------------------------------------------
+terraform with AWS ( details steps are in notes )
+- create a ec2 and install terraform and aws cli in it 
+- creata a iam role with secret key and login to your termainal
+- export AWS_ACCESS_KEY_ID=86485451854819
+- export AWS_SECRET_ACCESS_KEY=428343269629696
+- vim create main.tf 
+  terraform{
+        requirer_providers {
+                           aws = {
+                               source = "hashicorp/aws"
+                               version = "=> 4.16"
+                            }
+                            } 
+                            required_version = ">= 1.2.0"
+                             }
+
+provider "aws" {
+               region  = "us-east-1"
+}
+
+resource "aws_instace" "my_ec2_instance" {
+       count = 2
+       ami = "ami-051ed863837a0b1b6"
+       insctance_type = "t2.micro"
+       tags = {
+                Name = "terrafrom_aws"
+}
+}
+
+output "ec2_public_ips" {
+value = aws_instance.my_ec2_instance [*].public_ip
+}
+------------------------------------------------------------------------------------------------------------------
+terraform destroy command use to delete 
+-----------------------------------------------
+meta arguments 
+- count 
+- for each 
+- depends on 
+- life_cycle
+
+### count 
+resource "aws_instace" "my_ec2_instance" {
+       count = 4 
+       ami = "ami-051ed863837a0b1b6"
+       insctance_type = "t2.micro"
+       tags = {
+                Name = "terrafrom_aws- $[count.index]"
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
