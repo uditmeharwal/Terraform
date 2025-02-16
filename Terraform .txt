@@ -1,3 +1,4 @@
+https://github.com/paulgitrepo/mprashant-terraform-configs.git
 Manage infrastructure automatically . teraform writtenin hashicorp config language
 ### installation 
 - create instance 
@@ -202,6 +203,7 @@ resource "aws_instace" "my_ec2_instance" {
 
 ### depends on  checkoug from terraform website 
 ### life cycle 
+
 ## state management
 remote backend - terrafrom cloud 
 - create a terrafrom.tf file 
@@ -255,11 +257,72 @@ dynamodb_table = "terraweek-demo-state-table"
 - terraform state pulll 
 
 
+## create a bucket and upload data 
+resource "aws_s3_bucket" "my_s3_bucket" {
+bucket = "terraweek-demo-state-bucket"
+}
 
+resource "aws_s3_bucket" "my_s3_bucket" {
+        bucket = terraweek-demo-state-bucket.bucket
+        source = "./myfile.txt"
+        key = "mydata.txt"
+}
 
+## random provider  - check out from terraform site 
+it generate random value 
+resource "random_id" "rand_id" {
+     byte_length = 8
+}
+value =random_id.rand_id.hex
 
+### vpc 
+resource "aws_vpc" "my-vpc" {
+cidr_block ="10.0.0.0/16"
+tags ={
+name= "my_vpc "
+}
+}
 
+#subnet 
+resource "aws_subnet" "private-subnet" {
+cidr_block = "10.0.1.0/24"
+vpc_id =aws_vpc.my_vpc.id
+tags = {
+name = "private-subnet"
+}
+}
 
+resource "aws_subnet" "public-subnet" {
+cidr_block = "10.0.2.0/24"
+vpc_id =aws_vpc.my_vpc.id
+tags = {
+name = "public-subnet"
+}
+}
+
+# internet gateway
+resource "aws_internet_gateway" "my-igw" {
+vpc_id =aws_vpc.my_vpc.id
+tags ={
+name = "my-igw"
+}
+}
+
+# routing table 
+resource "aws_route_table" "my-rt" {
+vpc_id =aws_vpc.my_vpc.id 
+
+route {
+cidr_block = "0.0.0.0/0"
+gateway_id =aws_internet_gateway.my-igw.id
+}
+}
+## table association to subnet 
+route "aws_route_table_association" "public-sub" {
+route_table_id = aws_route_table.my-rt.id
+subnet_id = aws_ subnet.public-subnet.id 
+ 
+}
 
 
 
