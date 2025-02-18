@@ -337,7 +337,19 @@ output "security_group" {
 value data.aws_security_group.name.id
 }
 
+## to get the account details 
+data "aws_caller_identity" "name" {
+}
+output "caler_info" {
+value = data.aws_caller_identity.name
+}
+## getting region 
+data "aws_region" "name" {
 
+}
+output "region_name" {
+value = data.aws_region.name
+}
 
 
 
