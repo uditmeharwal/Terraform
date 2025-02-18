@@ -373,10 +373,15 @@ we need to create a folder structure
 - create folder Python > now install libraries > now create zip > now open lambda and click on side menue where click on layers > name them > upload your file > create > now go to your lambda function > code section scroll at last and click on add layer > custom layer > click layer and save 
 
 
+function create in layers 
+first create a file which contain function > zip > create layer of this file > now add this in our fuction layer >  call this  from file_name import function_name  > and call the funtio hello ()
 
+versioning in lambda  this is immutable 
+click on version > publish v1 > 
 
-
-
+ALIAS these are mutable 
+create > select version > create > go to function url > create > we can use the link for testing the applicatrion 
+now open alias and edit the weighted alias > now change the treaffic accordning to requirment 
 
 
 
