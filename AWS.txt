@@ -351,8 +351,26 @@ we can only access async function using cli
 how to triger labbmbda function on s3 object 
 - click on add trigger -> select target -> select bucket -> event type select-> save 
 
+how to trigger lambda function on load balancer
+- create a target group > now create a load balancer > select your lambda fuction in it 
 
+change the name of aws lambda file 
+change the name of file from vs code in lambda  > now scroll dow in code section > click on edit run time settings > change the handelor name as of yout file name (app.main)> save  
 
+upload your code from local to the aws lambda 
+write your code in local and name the file as app.py > create a zip of the file > now create function > click on upload from > save 
+
+method 2 
+upload file in s3 bucket > now go to lambda > copy the url of s3 bucket code file > now select upload from s3 in lambda > now done
+
+use external libraries in lambda function 
+we need to save code file and also modules file in the zip before upload it to lambda 
+pip install -t your module name  - this is use to save module in local file 
+create zip and upload it 
+
+Layer- use to manage file system 
+we need to create a folder structure 
+- create folder Python > now install libraries > now create zip > now open lambda and click on side menue where click on layers > name them > upload your file > create > now go to your lambda function > code section scroll at last and click on add layer > custom layer > click layer and save 
 
 
 
