@@ -324,9 +324,18 @@ subnet_id = aws_ subnet.public-subnet.id
  
 }
 
+## Data source 
+it allow to fetch info from source within your cloud infrastructure 
 
+data "aws_security_groups" "name" {
+tags = {
+ mywebserver = "http"
+}
+}
 
-
+output "security_group" {
+value data.aws_security_group.name.id
+}
 
 
 
