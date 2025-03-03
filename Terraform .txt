@@ -351,17 +351,52 @@ output "region_name" {
 value = data.aws_region.name
 }
 
+modules
+pre created modules present in terraform website 
+  
+### building the module 
+tf-own-module in git hub source code 
 
 
+## terraform dependency (depends on ) jabtak first task nhi hoga tab tak second start nhi hoga 
+for this we use code 
+depend_on = [aws_security_group.main ] - it will varify the first code 
 
+## resource life cycle 
+- prevent_destroy
+- reate_before_destroy
+- ignore_changes
+- replace_triggered_by 
 
+lifecycle{
+    create_before_destroy = true        destroy previous resource before creating new 
+}
 
+lifecycle {
+ prevent_destroy = true    prevent from destroy 
+}
 
+lifecycle{
+  ignore_changes = [
+   the content come in this block will not change 
 
+  ]
+}
 
+lifecycle{
+  replaced_triggered_by = [a , b ]
+}
+ 
+## validation 
 
+- precondition - chcek validation before create resource 
+- postconditions - chcek validation after  create resource 
 
-
+lifecycle {
+ percondition {
+     condition 
+ }
+}
 
 
 
