@@ -406,9 +406,16 @@ postcondition {
 }
 }
 
+terraform workspace commands
+- terraform workspace list 
+- terraform workspace new 
+- terraform workspcae select 
+- terraform workspcae show 
+- terraform workspace select default 
 
 
-
+terraform cloud 
+ 
 
 
 
