@@ -387,9 +387,13 @@ iam role in lambda
  open function > configuration > permission >  resource base policy > 
 
 lambda vpc 
-  open function > configuration > vpc  >  edit > select vpc > select subnet > select sg > 
+  open function > configuration > vpc  >  edit > select vpc > select subnet > select sg > donr 
 
+connect rd to lambda 
+open function > configuration > RDS   > select db > create > 
 
+reserve concurrency 
+provisioned concurrency 
 
 
 
