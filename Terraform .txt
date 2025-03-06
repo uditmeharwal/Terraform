@@ -394,9 +394,18 @@ lifecycle{
 
 lifecycle {
  percondition {
-     condition 
+     condition = aws_security_group.main.id != ""
+     error_message = "abc" 
  }
 }
+
+lifecycle {
+postcondition {
+    condition =self.public_ip != ""
+    error_message = "public ip not generated "
+}
+}
+
 
 
 
