@@ -383,8 +383,11 @@ ALIAS these are mutable
 create > select version > create > go to function url > create > we can use the link for testing the applicatrion 
 now open alias and edit the weighted alias > now change the treaffic accordning to requirment 
 
+iam role in lambda 
+ open function > configuration > permission >  resource base policy > 
 
-
+lambda vpc 
+  open function > configuration > vpc  >  edit > select vpc > select subnet > select sg > 
 
 
 
