@@ -166,4 +166,6 @@ with this as we chnage our code in git hub then it will trigger the jenkins and 
 
 ## Mail sending using jenkins 
 - go to google > manage accounts > search app password >  now this will generate a password > copy it 
-- open jenkins > go to settings > 
+- open jenkins > go to manage jenkins > credentials > add > now click username and pass > username is uditmeharwal2@gmail.com > passwrd is that which we generate > id is gmail 
+- open manage jenkins > system >  extended email notification > smtp server - smtp.gmail.com > smtp port - 465 > use your credentials > select use ssl > 
+- for testing email notification > email notification > smtp.gmail.com > go to advance click on smtp auth enter your mail in user and that pass in passs > check use ssl > port 465 > check test conf by send mail > enter email of sender > done 
