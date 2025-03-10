@@ -162,3 +162,8 @@ with this as we chnage our code in git hub then it will trigger the jenkins and 
 - now open manage and assign role section 
 - add a role and gve the permissions 
 - now go to assign role and assign this role to the particular user 
+
+
+## Mail sending using jenkins 
+- go to google > manage accounts > search app password >  now this will generate a password > copy it 
+- open jenkins > go to settings > 
