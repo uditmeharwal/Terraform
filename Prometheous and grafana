@@ -1,0 +1,12 @@
+https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqblRKeEJJU2E3VnJkd1dqYnhnYnN6Q2E0dlFpd3xBQ3Jtc0ttMTZfLVhDZjF5aHVuMmRDSWx1eUFsR0pJUkwxbjhYMV9TcWhRdk5vV09vdGZpTUo5ampHNlMtbjU4RGF3VWNTS2FoTjdXOFN4b1lLWHY3VnRneU5faWpXb0FWbjFVQ1kyUnYyS25CcEtwelBHdWVXNA&q=https%3A%2F%2Fgithub.com%2FLondheShubham153%2Fk8s-kind-voting-app%2F&v=DXZUunEeHqM
+
+Prometheus is an open-source systems monitoring and alerting toolkit that collects and stores time-series data,
+Grafana is an open-source data analytics and visualization ( Making dashboard )web application that can ingest data from various sources, including Prometheus, and display it in customizable charts. 
+
+Observability 
+  - Monitoring 
+  - Logging 
+  - Tracing - encounter the error and solve it 
+  - Alerting - sending messages 
+  - Visualization - 
+
