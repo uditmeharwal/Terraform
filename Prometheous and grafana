@@ -27,4 +27,6 @@ helm install kind-prometheus prometheus-community/kube-prometheus-stack --namesp
 kubectl get svc -n monitoring
 kubectl get namespace
 
-3.
+3. now port forwarding 
+kubectl port-forward svc/kind-prometheus-kube-prome-prometheus -n monitoring 9090:9090 --address=0.0.0.0 &
+kubectl port-forward svc/kind-prometheus-grafana -n monitoring 31000:80 --address=0.0.0.0 &
