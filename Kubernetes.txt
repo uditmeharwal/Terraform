@@ -807,6 +807,9 @@ not ask  topics in interviews
 
 ---- Helm ----
 helm is the package manager of kubernetes .Helm is an open-source tool that automates the deployment and management of applications in Kubernetes clusters. with that we dont need to write yml file for each step 
+ --------- some commands of helmm 
+- helm repo list - show the all repos list 
+-helm repo update - update repos 
 
 - install of helm 
 - go to google type install helm 
