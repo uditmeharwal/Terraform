@@ -45,6 +45,42 @@ go to configuration > data source > add source > select prometheus > and fill in
 -- creating a dashboard --
 click on dashboard > click on add eempty panal > select data source > and fill the quarry > we can choose the suggested charts > save 
 
+-- sending notification to teams --
+- cretate channel on teams > go to connectors > now click on incoming webhooks > create and copy the link > now open grafana > alert manager > contact point > create > select intigration as teams >  add name and link >  test 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
