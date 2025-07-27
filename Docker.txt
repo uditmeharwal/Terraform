@@ -27,6 +27,7 @@ docker architecture -> docker engin -
 -> docker stop container-id -stop the container 
 -> docker start container-id -start the container 
 -> docker restart container-id - restart the container 
+-> docker run -it image_id  - for run the interactive terminal programs 
 
 -----------------------------------------------------------------------------
 make a docker file -it is the file in which a set of instruction is available
