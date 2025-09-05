@@ -1,11 +1,22 @@
+-git config--list - show list of user 
+-git config --global user.name "uditmeharwal"
+-git config --global user.email uditmeharwal2@gmail.com
+
 -git init -for initializing an empty git 
 -git status -for checking status
+-git diff - it tell us the differance changes occure 
+-git show commitid:filename -show the commeted file 
+-git checkout commitid --filename
+-git restore 
+-git restore --staged
+-git reset --hard HEAD^  -- remove last commit and rest to previous commit origin
 -git add filename -for adding the file 
 -git add . -for uploading all files 
 -git rm --cached filename- for removing file which is staged to untracked
 -git commit -m "message" - for movving file from staged to tracked means properly uploaded
 -git restore filename -for restoring the deleted file 
 -git remote add origin https-- for pushing file from local to github 
+-git remote remove origin
 -git remote -v -for showing remote link 
 -git branch -M main  -naming the branch as main
 -git push origin main - for pushing the data 
@@ -31,4 +42,5 @@ flake8 $files     --- > it dont allow to upload the code on github if it have so
 echo"this file contain password or api please remove "
 exit 1
 fi - if anyfile contain pass or apikey then it will not allow you to upload on github 
+
 
