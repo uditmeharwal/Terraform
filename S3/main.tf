@@ -24,3 +24,14 @@ resource "aws_s3_bucket" "bucket" {
   }
   
 }
+
+# Upload a local file to an existing S3 bucket
+resource "aws_s3_object" "file_to_upload" {
+  bucket       = "uditmeharwal-terraform-bucket"
+  key          = "jaat.txt"     # object name in S3
+  source       = "jaat.txt"     # path to your local file
+  content_type = "text/plain"
+
+  # Helps Terraform detect changes to the local file and re-upload
+  etag = filemd5("jaat.txt")
+}
