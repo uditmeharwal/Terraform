@@ -1,0 +1,948 @@
+it is an orchestration tool . it is also called k8s
+monolyth - it is the application in which all the application included in a single application , it is very hard to manage , it is a single repository 
+micro services -it is the collection of different component of an application which are devided according to their work , and incase any service may not working so we can maanage this without stoping the app 
+for managing docker relaeted service we use kubernetes 
+In this we can handel many coontainers or we can say we are working on a cluster 
+--------------------------------------------------------------------------
+--Architecture of kubernetes--
+scheduler - it manage all time related activites and manage all schedules 
+api server -it help to  communicate with worker leve 
+controller manager - it is the head manager and manage all the activities 
+pods -pods is the place where containers are running 
+etcd - it is the database of the kubernetes
+kublet - low level manager , it work as worker node 
+service proxy 
+kubectl - help to control and instruct to hole cluster 
+------------------------------------------------------------------------
+--- kubernetes cluster types -----
+-> kubeadm - we use two or more instance and attach them together and make a cluster , it is very expensive  
+-> minikube (local system )
+-> kind cluster -> kubernetes in docker 
+-> EKS /AKS -> Elastic kubernetes service it is online cloud service 
+--------------------------------------------------------------------------------------------------------------
+--------- kind cluster---- install and run  
+-> create an instance in aws and ssh it in system 
+-> open kubestarter repositary in git hub and open kind cluster 
+-> create a file install.sh and paste the command in it and give them full prmission and  run it in system 
+-> install docker in your system 
+-> kubectl version -> show version 
+-> kind --version -> show version 
+-> now create a kubernetes cluster 
+-> check second step in git repo and create a config.yml file and paste the code for cluster in it 
+->
+                kind: Cluster
+                apiVersion: kind.x-k8s.io/v1alpha4
+
+                nodes:
+                  - role: control-plane
+                    image: kindest/node:v1.31.2
+                  - role: worker
+                    image: kindest/node:v1.31.2
+                  - role: worker
+                    image: kindest/node:v1.31.2
+
+-> kind create cluster --config kind-cluster-config.yaml --name my-kind-cluster
+-> kubectl get nodes -> information about all nodes 
+-----------------------------------------------------------------------------------------------------------------
+------- mini kube --------- install and run 
+-> open git and shubham lodhe repo and open kubestarter 
+-> open mini kube installer file and follow steps 
+-> kubectl config user-context udit-cluster  ---> restore to the normal settings 
+-----------------------------------------------------------------------------------------------------------------
+------- kubeadm ----- install and run 
+- create 2 instance  and ssh them in systwm 
+- open kubeadm in git and follow commands
+-----------------------------------------------------------------------------------------------------------------
+- POD -
+one pod can run one or more containers 
+- namespace - the particular resources present in the namespace are belong to the particular group 
+- docker container -> pod -> deployment -> service -> user access
+- kubectl get ns -> show all name spaces 
+- kubectl get pods -> show podes 
+- kubectl create ns ngnix - create namespance ngenix 
+- kubectl run nginix --image=nginix -> it will create a pod of nginix
+- kubectl get pods - show list of pods 
+- kubectl delete pod nginix - delete the pods 
+- kubectl run nginix --image=nginix -n nginix - create th pod in particular name space 
+- kubectl get pods -n nginix - list of the pods in the nginix name space 
+-kubectl get pods -n nginix -o wide - give more info about pods 
+- we can create all the pods ,deloyment , service through yml file which is called manifest file 
+      -create a file namespace.yml
+          -kind: Namespace
+           apiVersion: v1 
+           metadata: 
+              name: nginix
+      -save the file and use command "kubectl apply -f namespace.yml"
+-now we create a pod 
+    --create a file pod.yml 
+        kind: pod 
+        apiVersion: v1 
+        metadata: 
+          name: nginix-pod 
+          namespace: nginix 
+        spec: 
+          containers: 
+          - name: nginix
+            image: nginix:latest
+            ports: 
+            - containerPost: 80
+      - again use command "kubectl apply -f pod.yml"
+-kubectl exec -it nginix-pod -n nginix -- bash     - with this we can enter inside the pods 
+
+-Replica Set --> it create multiple copy of a pod
+-Stateful Set -> it give address to a pod so that their state will maintain
+-Deployment Set -> it  create replicasa and also give facility of rolling updates
+              Rolling Updates - it allow to run the application during updates and prevent the app to stop . it give the update to podes one by one 
+-Daemon Set ->  it ensure that each nodes have assigne atlest on pod running on it  
+
+--DEPLOYMENT--  
+
+- create a file deployment.yml and enter code in in 
+      
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginix-dep-pod 
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+          
+-kubecut apply -f deployment.yml - apply the file 
+- kubectl scale deployment/nginix-deployment  -n nginix --replicas=5  - incase of heavy traffic we can increase the pod 
+- kubectl set image deployment/nginix-deployment -n nginix niginx=nginx:1.27.3 = command is use to roll over new update of nginix in the pods 
+
+--Replica Set-- we can only replicate the podes not use other features 
+
+- create file Replicasets.yml
+    kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: nginx-replicasets
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginix-rep-pod 
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+- now apply 
+
+-- Daemon Sets --
+
+- create a file Daemonaset.yml
+
+          kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: nginx-daemonsets
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginix-dem-pod 
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+--now apply this 
+
+
+-- jobs and crown jobs --
+
+- job - the task done by single container
+ - create job.yml
+      
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: demo-job
+  namespace: nginix
+spec:
+complition: 1
+parallelism: 1
+  template:
+    metadata:
+      name: demo-job-pod
+      labels:
+        app: batch-task
+    spec:
+      containers:
+      - name: batch-container
+        image : busybox: latest
+        command: ["sh", "-c" ,"echo hello ! && sleep 10"]
+        restartPolicy: never
+
+- now apply 
+- kubectl get job -n nginix  - check job status 
+- kubectl logs pod/demo-job -n nginix - give out tht log 
+
+-cron job - if the particular task run on any specific time . following a particular schedula and run the command 
+
+-create cronJob.yml
+      
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: minutUpdate e-backup
+  namespace: nginix
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: hello
+            labels:
+              app: hello
+          spec:
+            containers:
+            - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+
+- cron guru - it is site use for scheduling the time 
+- now apply
+
+-------------------------------------------------------------------------------------
+--STORAGE--
+
+--persistant volume-- 
+
+-create persistant volume.yml
+        kind: PersistentVolume
+        apiVersion: v1
+        metadata:
+            name: local-pv
+            labels:
+              app: local
+        spec:
+            capacity
+              storage: 1Gi
+            accessModes:
+              -ReadWriteOnce
+            persistentVolumeRFeclaimPolicy:Retain
+            storageClassName: local-storage
+            hostPath:
+                path: /mnt/data
+- now apply command
+ -kubectl get pv - show the list of persistant volume 
+after create the volume we need to attach it to local system 
+-vim persestent volumeclaim.yml -help to claim the volume 
+
+
+  kind: PersistentVolumeClaim
+  apiVersions: v1
+  metadata: 
+    name: local-pvc
+  spec: 
+    accessModes:
+      -ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  StorageClassName: local-storage 
+
+- apple this in system
+-kubectl get pvc -show list of pvc 
+
+now we use this volume in our app by applying volume mouunt command in 
+
+open deployment.yml 
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginix-dep-pod 
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+          volumeMounts:
+            - mountPath : /var/www/html
+              name: local-pvc
+          volumes: 
+            - name: my-volume
+              persistentVolumeClaim:
+                  claimName: local-pvc
+- now apply 
+- open persistent volume .yml  and add namespace : nginix 
+- open persistent volume claim.yml and namespace : ngiix
+- now again apply both  
+
+--------------------------------------------------------------------------------    
+-- Networking --
+Service - it is use to access the pods information to the public user 
+- create service.yml
+    
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginix-service
+  namespace: nginix
+spec:
+  selector:
+    app: nginix
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+-- now apply 
+- kubectl port-forward service/nginix-service -n nginix 80:80  --address=0.0.0.0 - this command will allow us to access the nginix publically 
+
+---Ingress---
+it is traffic rerouting tool in which we can create routes for the links link /movie /game divert to different links 
+
+-ingress controller - help in routing in cluster level 
+-- open kind documentation and open ingress section and follow 
+-kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
+-create ingress.yml 
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata: 
+        name: nginix-notes-ingress
+        namespace: nginix 
+        annotations:
+            nginix.ingress.kubernetes.io/rewrite-target: /
+      spec:
+        rules:
+          - http: 
+              paths: 
+                -pathType: prefix
+                  path: /nginix
+                    backend: 
+                      service:
+                        name: nginix-service
+                        port: 80 
+                          number: 0
+                  - pathType: Prefix
+                    path: /
+                    backend:
+                      service:
+                          name:notes-app-service
+                          port: 
+                            number:8000
+  - now apply 
+- kubectl port-forward service/ingress-nginix-controller -n ingress-nginix 8080:80 --address=0.0.0.0 for ingress controller  
+                
+.............................................................
+--- django notes app mini project --
+- copy git django  ote app 
+- create image using docker
+- login in docker hub 
+- create tocken in docker hub for login 
+- login in system 
+- tag the image 
+- push the image in docker hub 
+- now create namespace.yml
+- now create deployment .yml
+- now create service .yml 
+- first apply namespace , then deployment , then service 
+- now expose the app to the public 
+- now the app is online 
+.............................................................
+ -- Stateful sets --
+- mainly use in databases
+- firstly we create a new namespace called mysql
+  create file namespace.yml 
+      kind: NamesSpace        
+      apiVersion v1
+      metadata:
+          name: mysql 
+-now apply it 
+
+- now create statefulsets.yml 
+      kind: StatefulSet
+      apiVersion: apps/v1
+      metadata: 
+        name: mysql-statefulset
+        namespace: mysql
+      spec:
+        serviceName: mysql-service
+        replicas: 3
+        selector:
+            matchLabels:  
+                app: mysql
+     template:
+            metadata:
+              labels:
+                app: mysql
+        spec:
+          containers:
+          - name: mysql
+            image: sql:8.0
+            ports:
+            - containerPort: 3306    
+            env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom: 
+                SecretKeyRef:
+                    name: mysql-secret
+                    key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              value: devops
+           VolumeMount:
+            -name: mysql-data
+            mountpath: /var/lib/mysql
+          VolumeClaimTemplates:
+          - metadata:
+              name: mysql-data
+             spec:
+              accessMode: [ReadWriteOnce]
+              resources:
+                requests:
+                    storage: 1Gi
+
+- now create service file for stateful create service.yml
+        kind: Service
+        apiVersion: v1
+        metadata:
+            name: mysql-service
+            namespace: mysql
+        spec:
+          clusterIP: none 
+          selector:
+            app: mysql
+          ports:
+          - name: mysql
+            protocpol: TCP
+            port: 3306
+            targetPort: 3306
+
+- now apply service
+-headless service - which cluster ip is none  means outer public cannot access it 
+- kubectl exec -it mysql-statefulset-0 -n mysql --bash - we can enter instde mysql pod 
+- kubectl delete pod mysql-statefulset-0 -n mysql   -delete the pod my sql 
+
+-- configMaps -- 
+it is the file which is use to store the data related to the configurations of all the things 
+       create a file  configMap.yml
+          kind: ConfigMap
+          apiVersion: v1 
+          metadata: 
+              name: mysql-cofig-map
+              namespace: mysql
+          data: 
+            MYSQL_DATABASE: devops 
+-- now apply this 
+
+now open statefulfile and change  the keyword value to this given below 
+
+    use valueFrom: 
+            configMapkeyRef:
+            name: mysql-config-map
+            key: MYSQL_DATABASE
+            
+-- secrets --
+if we want to hide passwords and encript the passwords so we use secret .yml file 
+- create a file secret.yml
+        apiVersion: v1
+        kind: Secret
+        metadata: 
+            name: mysql-secret
+            namespace: mysql 
+          data:
+            MYSQL_ROOT_PASSWORD: root 
+--- we can not directly enter the password here we need to convert it into base64 for the we use 
+- echo "your_password" | base64
+this will give an output and we use that output and paste it in password place in secret file 
+
+-- now we need to define secret file in our stateful file like of config Map file  and then apply secret file 
+ 
+-----------------------------------------------------------------------------------------------------------------
+ --- Scaling and scheduling ---
+
+-- Resource quotas and limits - resource allocation (ram , memory to any specific pod ) 
+    it is written in deployment.yml 
+          in the containers section 
+            resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+
+- now apply deployment 
+
+----Probes --
+types
+- liveness probe - it will check that our probe is live or not 
+      - this will apply on deployment file under the containerPort section 
+          livenessProbe:
+              httpGet:
+              path: /
+              port: 8000
+
+- readiness probe - check tat it is ready or not 
+            readinessProbe:
+                httpGet:
+                path: /
+                port: 8000
+- startup probe -
+
+----Taints/Tolerations---
+taint is the way to telling cluster that you are not allow to scheduled a pod on particular worker node 
+toleration - if any node is tainted it allow us to scheduled the pod on particular node 
+- kubectl taint node node-name prod=true:NoSchedule this connand use for taint the pod and cancel all the scheduling for the pod 
+- kubectl taint node node-name prod=true:NoSchedule- for removing all taint we use minus at end 
+
+how to use tainted node 
+
+open pod.yml and enter after containeraPort
+        tolerations:
+        - key : "prod"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+- now apply pod 
+
+
+Autoscaling and autohealing is one of the important work of the kubernetes and HPA and VPA ara part of this 
+
+AutoScaling- as load increase the pods capasity and nuber will also increase 
+-HPA - horizontal pod auto scaling 
+ in this if the load increase the replicas of the pod create and number of pods increase 
+
+-VPA - vertial pod auto scaling
+in this if the load increase then the pod increase their resources and capacity they do not replicate 
+mainly use in stateful application 
+
+-KEDA - kubernetes event driven auto scaling 
+it is very lessly using service in industry 
+keda use both hpa and vpa on the basis of type of application and matrics of the application 
+
+matrics - quantifiable resources number .inform about resource use 
+- minikube addons enable metrics -server  this comand is for minikube to use metrics 
+- for apply in kind cluster we use  git repo kubestarter and in it we use HPA_VPA  and follow the instructions 
+- kubectl top nodes - show the matrics  
+- kubectl top pod - for checking the pod metrics 
+
+
+-- apache-- it is online app which allow userf to deploy app in web 
+- create namespace.yml for apache and apply
+          kind: Namespace
+          apiVersion: v1
+          metadata: 
+              name: apache
+              
+- create deployment.ynl for and apply 
+        kind: Deployment
+        apiVersion: app/v1
+        metdata:  
+            name: apache-deployment
+            namespace: apache
+        spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                  app: apache
+            templet:
+                metadata:
+                    name: apache\
+                    labels:
+                      app: apache 
+              spec:
+                  containers:
+                - name: apace
+                  image: httpd: latest
+                  port:
+                - containerPort: 80 
+                resource :
+                  requests:
+                    cpu: 100m
+                    memory: 128Mi
+                  limits:
+                    cpu: 200m
+                    memory: 256Mi
+- now check kubectl get pods -n apache
+- create service.yml  and apply it 
+          kind: Service
+          apiVersion: V1
+          metadata:
+            name: apache-service
+            namespace: apache
+          spec:
+            selector:
+                app: apache
+            ports: 
+              - protocol : TCP
+                port: 80 
+                targetPort: 80
+            type: clusterIP
+
+- kubectl port-forward service/apache-service -n apache 82:80 --address=0.0.0.0 for running in public 
+- kubectl scale depolyment apache-deployment -n apache --replicas=3 - made replica mannually 
+ 
+--HPA-- autoscaling 
+- create a file HPA.yml
+        apiVersion: autoscaling/v2
+        kind: HorizontalPodAutoscaler
+        metadata: 
+            name: apache-hpa 
+            namespace: apache
+            spec:
+              scaleTargetRef:
+                Kind: Deployment 
+                name: apache-depployment 
+                apiVersion: app/v1
+
+              minReplicas: 1
+              maxReplicas: 5
+
+              matrics: 
+               -type : Resource
+                resource: 
+                    name: cpu 
+                    target:    
+                      type : utilization 
+                      averageUtilization: 5 
+now apply it 
+
+--- VPA --
+for this we need to download vpa file from git repo kubernetes/ autoscaler 
+- now use cd autoscaler/vertical-pod-autoscaler 
+- now install it using installation guide 
+- ./hack/vpa-up.sh 
+- vim  vpa.yml
+      kind: VerticalPodAutoscaler
+      apiVersion: autoScaling.k8s.io/v1
+      metadata:
+          name: apache-vpa
+          namespace: apache
+
+      spec:
+          targetRef:
+              name: apache-deployment
+              apiVersion: app/v1
+              kind: Deployment
+            updatePolicy: 
+              updateMode: "AutoScale"
+- now apply it 
+
+--- Node Affinity ---
+the ability to assign a Kubernetes pod to a specific node or group of nodes in a cluster based on specific criteria.
+
+RBAC - Role based access control 
+ two types of access 
+namespace level - roles , role binding
+cluster level - cluster role , cluster binding 
+
+- kubectl auth whoami - give info of current user 
+- kubectl auth can-i get pods - show info yes or no 
+- kubectl auth can-i get deployment -n apache - show info in yes or no 
+--namespace level --
+- for roles and permissions we need to create role.yml file
+        
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: apache-manager
+  namespace: apache
+rules:
+- apiGroups: ["","apps","rbac.authorization.k8s.io/v1","batch"] 
+  resources: ["pods","deployment","service"]
+  verbs: ["get","apply","delete","create","patch","watch", "list"]
+
+- apply it using kubectl apply -f role.yml
+- kubectl get role -n apache - show the roles in apache namespace 
+
+now we need to create service-account.yml 
+
+          kind: ServiceAccount
+          apiVersion: v1
+          metadata:
+              name: apache-user
+              namespace: apache  
+- apply 
+- kubectl get serviceaccount -n apache - show list 
+- now we need to create role binding vim role-binding.yml 
+        kind: RoleBinding
+        apiVersion: rbac.authorization.k8s.io/v1
+        metadata:
+            name: apache-manager-rolebinding
+            namespace: apache
+        subjects:
+        - kind: User
+          name: apache-user
+          apiGroup: rbac.authorization.k8s.io
+         roleRef:
+              kind: Role 
+              name: apache-manager
+              apiGroup: rbac.authorization .k8s.io
+- apply it 
+
+- kubectl auth can-i get pods --as=apache-user -n apache
+
+--- cluster level --- 
+- firstly we need to create a dashboard and we use github kubestarter / kind-cluster for that and follow all instructions 
+
+this will create a dashboard and show all the information on the browser 
+
+
+--- custom Resource Defination (crd)
+the resource which are not presnt in kubernetes liberary and which are created customly are crd 
+
+- create file devops-crd.yl
+
+      kind CustomResourceDefination
+      apiVersion: apiextension.k8s.io/v1
+      metadata:
+          name: devopsbatches.trainwithshubham.com
+      spec:
+          group: trainwithshubham.com
+          names:
+            plural: devopsbatches
+            singular: devopsbatch
+            kind: DevopsBatch
+            shortNames:
+              - batches
+              - tws 
+          scope: Namespaced
+          versions: 
+          - name: v1
+            served: true
+            storage: true
+            schema: 
+                openAPIV3Schema:
+                    type: object
+                    properties:
+                        spec: 
+                          type: object
+                          properties: 
+                            name:
+                              type: string
+                              description: this is the devops batch 
+                            duration:
+                                type: string
+                                description: this is the time of batch 
+                            mode:
+                              type: string
+                              description: this the mode of betch 
+                            platform:
+                              type: string
+                              description: this is the platform of the batch 
+                              
+- apply it 
+- kubectl get crd - show list of crd 
+
+- create file devops-cr.yml 
+
+kind: DevOpsBatch 
+apiVersion: trainwithshubham.com/v1
+metadata:
+    name: junoon-batch-9
+spec:
+    name: Devops-zero to hero junoon batch 9
+    duration: 3 months 
+    platform: trainwithshubham.com
+    mode: Live as always
+
+now apply it 
+
+
+kubernetes api - ( kopf ) ->  it is a python framework which is use to write kubernetes in python 
+
+
+not ask  topics in interviews 
+- crd 
+- kubernetes api 
+- operators
+
+---- Helm ----
+helm is the package manager of kubernetes .Helm is an open-source tool that automates the deployment and management of applications in Kubernetes clusters. with that we dont need to write yml file for each step 
+ --------- some commands of helmm 
+- helm repo list - show the all repos list 
+-helm repo update - update repos 
+
+- install of helm 
+- go to google type install helm 
+- follow script 
+- and run it 
+- now verify helm version 
+
+- helm create apache-helm - this automatically all the yml files which he need 
+- now go inside folder apache-helm 
+- sudo apt install tree -  now install this package for see structure of file  
+- tree - to see the structure use the command 
+- all the configuration files store in values.yml 
+- helm package apache-helm/ - create the package chart and save it 
+- helm install dev-apache apache-helm - this will deploy the file 
+- helm uninstall dev-apache - for remove the dev-apache this will delete all files 
+- helm install dev-apache apache-helm -n dev-apache --create-namespace - this is use to deply file with enter namespace 
+- kubectl get pods -n dev-apache - show the list of pods in dev-apache 
+- helm install prod-apache apache-helm -n prod-apache --create-namespace - for production 
+
+---- if we change anything in the value .yml after deployment so to apply this we need to follow these step 
+- vim apache-helm/chart.yml
+- change the appversion value last digit to increase order( like app version increases )
+- helm package apache-helm  - to apply  
+- helm upgrade prd-apache  ./apache-helm -n prod- apache - now this will apply to prod-apache namespace 
+- helm rollback prod-apache 1 -n prod-apache -- for rollback to previous version 
+
+
+--- example of node js app deploy using helm 
+
+- helm create node-js-app
+- go inside folder 
+- tree
+- change values of port and target port in service.yml file  
+- change values of port and target port in values.yml file 
+- heln package node-js-app
+- helm install dev-node-js-app node-js-app -n dev-node --create-namespace
+- kubectl get svc -n dev-node 
+- kubectl port-forward svc/dev-node-js-8000:8000 -n dev-node --address=0.0.0.0
+--------------------------------------------------------------------------------------
+----Init Cntainer vs Sidecar Container----
+- To run the container we required a precotaiiner which is called init container 
+- sidecar container is a helper container at run the things side by side 
+
+- vim init-container.yml
+      kind: Pod
+      apiVersion: v1
+      metadata:
+          name: init-test
+      spec:
+          initContainers:
+            - name: init-container
+              image: busybox:latest    
+              command: ["sh","-c", "echo 'Initialziation started ... ' ; sleep 10; echo 'Initization completed. '"]
+              
+          container:
+            - name: main-container
+              image: busybox:latest
+              command: ["sh","-c", " echo 'Main container started'"]
+now apply it 
+-
+
+
+- vim sidecar-container.yml
+        kind: Pod
+      apiVersion: v1
+      metadata:
+          name: sidecar-test
+
+      spec:
+
+          volumes:
+          - name: shared-logs
+            emptyDir: {}
+          
+          container:
+              # this is use to produce logs 
+            - name: main-container
+              image: busybox:latest
+              command: ["sh","-c","while true;do echo 'Hello Dosto'>>/var/log/app.log; sleep 5; done"] 
+            volumeMounts:
+              - name: shared-logs
+                moutPath: /var/log/
+
+              # this is use to display logs
+          - name: sidecar-container
+            image: busybox
+            command: ["sh","-c", "tail -f /var/log/app.log"]
+             volumeMounts:
+              - name: shared-logs
+                moutPath: /var/log/
+apply it 
+          
+------ Servish mesh -------
+
+it provide us a gateway with which we can route our routes there is a tool istio which is use for service meshing 
+- istio is download from its official website 
+- follow the steps
+- istio uses envoy  which is a side car container / proxy that allow handle ingree routes 
+
+------------------------------------------------------------------------------------------------------------------
+project 1 - chat application  3 tier application  frontend - reactjs backend - node js db - mongodb
+this project is done using minikube 
+create docker container -> pod ->  deployment -> service -> ingress
+- instsll and open vscode and then new terminal 
+- install minikube 
+- minikube start --driver=docker - this will start minikube 
+- import the chat app from github  iemafzalhassan / full-stack_chatApp 
+- go to docker hub and login this in system 
+- docker build -t udit/chatapp-backend:latest . - use this command for tagging the file 
+- docker push udit/chatapp-backend:latest
+- do this for front end also 
+- docker image tag <old> <new> - if we want to rename the tag 
+- now create a folder k8s and create a file namespace.yml - enter the code in namespace file  
+- kubectl create -f namespace.yml -  apply for first time we can use both command apply and create 
+- kubectl get ns - check namespace 
+- create backend-deployment.yml enter the code 
+- add container image name from docker hub for backend and frontend both 
+- create frontend-deployment.yml and change container image name 
+- create mongodb-deployment.yml and add container image to monogodb:latest
+- now create mongo-pvc.yml and copy it from internet 
+- create service file for all 
+- follow steps from git hub account 
+------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+

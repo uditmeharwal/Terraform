@@ -1,0 +1,445 @@
+https://github.com/paulgitrepo/mprashant-terraform-configs.git
+Manage infrastructure automatically . teraform writtenin hashicorp config language
+### installation 
+- create instance 
+- now go to the terraform site and open linux section 
+- follow the steps and install the file 
+ 
+create a terraform file 
+- vim teraform.tf
+- resource "local_file" "devops" {
+    filename = "/home/udit-meharwal/teraform.txt"
+    content = "hello world"
+}
+
+- terraform validate -check the file 
+- terraform init - initialize the terraform
+- terraform plan - show the plane
+- terraform apply - apply the action 
+- terraform automatically create a folder .tfstate which contain all the logs and store them automatically 
+- terraform state show - show the state 
+
+####terraform with docker---------------------------------------------------------------------------------------
+
+terraform{
+ required_providers{
+  docker = {
+    source = "kreuzwerker/docker"
+    version = "-> 2.21.0"
+  }
+ }
+} 
+
+provider "docker" {}
+
+resource "docker_image" "nginx" {
+name  = "nginx:latest"
+keep_locally = false
+}
+
+resource "docker_container" "nginx" {
+image = docker_image.nginx.latest
+name = "nginx-tf" 
+port {
+    internal = 80
+   external = 80
+}
+}
+--------------------------------------------------------------------------------------------------------------
+terraform variables 
+- vim variable.tf
+ variable "filename" {
+     default = "/home/udit-meharwal/devops.txt"
+     
+}
+
+ variable "content"{                         
+    default = "this is auto generated"
+}
+
+ variable "devops" {}  
+
+ variable "maptype" {                         
+   type = map
+   default = {
+"ccontent1" = "this is 1"
+"content2"  = "this is 2"
+   }
+ }
+
+variable "listtype" {
+type = list 
+default = {"/home/uditmeharwal/file1.txt","/homw/uditmeharwal/file2.txt"}
+}
+
+variable "objecttype" {
+type = object({
+    name = string
+    phone_no = number
+    address = list{string}
+})
+default ={
+name = "uditmeharwal"
+phone_no = "8267977123"
+address = ["a","b"]
+}
+}
+------------------------------------------------------------
+                                                    
+-vim main.tf
+resource "local_file" "devops-var" {
+     filename = var.filename
+     content = var.content
+                                                //  the variable which we have create in variable.tf file will fetch here                                                          
+}
+
+output "devops" {
+value = var.devops
+}
+
+resource "local_file" "devops-var" {
+     filename = var.filename
+     content = var.maptype["content1"]      // using map type data type 
+}
+
+resource "local_file" "devops" {
+filename = var.listtype[0]
+content = var.maptype["content1"] 
+}
+
+resource "local_file" "devops" {
+filename = var.listtype[0]
+content = var.objecttype.name
+content = var.objecttype.phone_no
+content = var.objecttype.address
+}
+--------------------------------------------------------------
+now init , apply it 
+- export TF_VAR_devops="udit meharwal" // using this command the value of devops variable is export
+  
+------------------------------------------------------------------------------------------------------------------
+terraform states
+- In this the computer generates a plan befor executing the file 
+- improve performance ,dependency management
+
+------------------------------------------------------------------------------------------------------------------
+terraform with AWS ( details steps are in notes )
+- create a ec2 and install terraform and aws cli in it 
+- creata a iam role with secret key and login to your termainal
+- export AWS_ACCESS_KEY_ID=86485451854819
+- export AWS_SECRET_ACCESS_KEY=428343269629696
+- vim create main.tf 
+  terraform{
+        requirer_providers {
+                           aws = {
+                               source = "hashicorp/aws"
+                               version = "=> 4.16"
+                            }
+                            } 
+                            required_version = ">= 1.2.0"
+                             }
+
+provider "aws" {
+               region  = "us-east-1"
+}
+
+resource "aws_instace" "my_ec2_instance" {
+       count = 2
+       ami = "ami-051ed863837a0b1b6"
+       insctance_type = "t2.micro"
+       tags = {
+                Name = "terrafrom_aws"
+}
+}
+
+output "ec2_public_ips" {
+value = aws_instance.my_ec2_instance [*].public_ip
+}
+------------------------------------------------------------------------------------------------------------------
+terraform destroy command use to delete 
+-----------------------------------------------
+meta arguments 
+- count 
+- for each 
+- depends on 
+- life_cycle
+
+### count 
+resource "aws_instace" "my_ec2_instance" {
+       count = 4 
+       ami = "ami-051ed863837a0b1b6"
+       insctance_type = "t2.micro"
+       tags = {
+                Name = "terrafrom_aws- $[count.index]"
+}
+}
+
+## for-each - taking names of the instance from the list and then use them to create the instance 
+locals{
+     instance_name = toset[["a","b","c","d"]]
+}
+resource "aws_instace" "my_ec2_instance" {
+       for_each = local.instance_name
+       ami = "ami-051ed863837a0b1b6"
+       insctance_type = "t2.micro"
+       tags = {
+                Name = each.key
+}
+}
+
+### key and value 
+locals{
+     instance = toset{"a":"ami-051ed863837a0b1b6","b":"ami-051ed863837a0b1b6","c":"ami-051ed863837a0b1b6"}
+
+}
+resource "aws_instace" "my_ec2_instance" {
+       for_each = local.instance
+       ami = each.value
+       insctance_type = "t2.micro"
+       tags = {
+                Name = each.key
+}
+}
+
+### depends on  checkoug from terraform website 
+### life cycle 
+
+## state management
+remote backend - terrafrom cloud 
+- create a terrafrom.tf file 
+  terrafrom{
+          required_providers {
+          aws = {
+          source = "hashicorp/aws"
+          version = "4.66.1"
+          }
+          } 
+  }
+
+- vim providers.tf
+   provider "aws" {
+          region = "us-east-1"
+   }
+
+- vim  resources.tf
+resource "aws_s3_bucket" "my_s3_bucket" {
+bucket = "terraweek-demo-state-bucket"
+}
+
+resource "aws_dunamodb" "my_dynamo_table" {
+name = "terraweek-demo-state-table"
+billing_mode = "PAY_PER_REQUEST"
+hash_key = "LockID"
+attribute {
+name = "LockID"
+type = "S"
+}
+}
+
+state locking 
+- vim terrafrom .tf
+   terrafrom{
+          required_providers {
+          aws = {
+          source = "hashicorp/aws"
+          version = "4.66.1"
+          }
+          } 
+  }
+backend "s3" {
+bucket = "terraweek-demo-state-table-bucket"
+key = "terrafrom.tfstate"
+region = "us-east-1"
+dynamodb_table = "terraweek-demo-state-table"
+}
+
+- terraform state list 
+- terraform state pulll 
+
+
+## create a bucket and upload data 
+resource "aws_s3_bucket" "my_s3_bucket" {
+bucket = "terraweek-demo-state-bucket"
+}
+
+resource "aws_s3_bucket" "my_s3_bucket" {
+        bucket = terraweek-demo-state-bucket.bucket
+        source = "./myfile.txt"
+        key = "mydata.txt"
+}
+
+## random provider  - check out from terraform site 
+it generate random value 
+resource "random_id" "rand_id" {
+     byte_length = 8
+}
+value =random_id.rand_id.hex
+
+### vpc 
+resource "aws_vpc" "my-vpc" {
+cidr_block ="10.0.0.0/16"
+tags ={
+name= "my_vpc "
+}
+}
+
+#subnet 
+resource "aws_subnet" "private-subnet" {
+cidr_block = "10.0.1.0/24"
+vpc_id =aws_vpc.my_vpc.id
+tags = {
+name = "private-subnet"
+}
+}
+
+resource "aws_subnet" "public-subnet" {
+cidr_block = "10.0.2.0/24"
+vpc_id =aws_vpc.my_vpc.id
+tags = {
+name = "public-subnet"
+}
+}
+
+# internet gateway
+resource "aws_internet_gateway" "my-igw" {
+vpc_id =aws_vpc.my_vpc.id
+tags ={
+name = "my-igw"
+}
+}
+
+# routing table 
+resource "aws_route_table" "my-rt" {
+vpc_id =aws_vpc.my_vpc.id 
+
+route {
+cidr_block = "0.0.0.0/0"
+gateway_id =aws_internet_gateway.my-igw.id
+}
+}
+## table association to subnet 
+route "aws_route_table_association" "public-sub" {
+route_table_id = aws_route_table.my-rt.id
+subnet_id = aws_ subnet.public-subnet.id 
+ 
+}
+
+## Data source 
+it allow to fetch info from source within your cloud infrastructure 
+
+data "aws_security_groups" "name" {
+tags = {
+ mywebserver = "http"
+}
+}
+
+output "security_group" {
+value data.aws_security_group.name.id
+}
+
+## to get the account details 
+data "aws_caller_identity" "name" {
+}
+output "caler_info" {
+value = data.aws_caller_identity.name
+}
+## getting region 
+data "aws_region" "name" {
+
+}
+output "region_name" {
+value = data.aws_region.name
+}
+
+modules
+pre created modules present in terraform website 
+  
+### building the module 
+tf-own-module in git hub source code 
+
+
+## terraform dependency (depends on ) jabtak first task nhi hoga tab tak second start nhi hoga 
+for this we use code 
+depend_on = [aws_security_group.main ] - it will varify the first code 
+
+## resource life cycle 
+- prevent_destroy
+- reate_before_destroy
+- ignore_changes
+- replace_triggered_by 
+
+lifecycle{
+    create_before_destroy = true        destroy previous resource before creating new 
+}
+
+lifecycle {
+ prevent_destroy = true    prevent from destroy 
+}
+
+lifecycle{
+  ignore_changes = [
+   the content come in this block will not change 
+
+  ]
+}
+
+lifecycle{
+  replaced_triggered_by = [a , b ]
+}
+ 
+## validation 
+
+- precondition - chcek validation before create resource 
+- postconditions - chcek validation after  create resource 
+
+lifecycle {
+ percondition {
+     condition = aws_security_group.main.id != ""
+     error_message = "abc" 
+ }
+}
+
+lifecycle {
+postcondition {
+    condition =self.public_ip != ""
+    error_message = "public ip not generated "
+}
+}
+
+terraform workspace commands
+- terraform workspace list 
+- terraform workspace new 
+- terraform workspcae select 
+- terraform workspcae show 
+- terraform workspace select default 
+
+
+terraform cloud 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

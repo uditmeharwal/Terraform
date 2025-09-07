@@ -1,0 +1,178 @@
+Linux commands 
+-date - print date  
+-date '+%Y-%m-%d-%H-%M-%S' -for specific format 
+-whoami -give out Linux as result 
+-mkdir Linux -create a folder as name Linux 
+-ls -list show 
+-ls -t -use for file sort 
+-pwd -show present working directory
+-cd Linux -for accessing the folder 
+-cd .. -for exit out from the folder 
+-touch textfile.txt -creating a textfile
+-vim textfile.txt - vim help to edit and open the text file and also insert data using (i) and save using (:wq)
+-cat textfile.txt - show inside date of a text file on the terminal 
+-zcat -to see the content of a zip file 
+-head filename -for printing upper(10)lines of file 
+-tail filename -for printing last(10)lines of the file 
+-tail -f filename -it monitor the file and if new data add on the file it will show 
+-less , more -show file in small pages
+-nano textfile.txt -it is also a text editor which is more advanced then vim
+-touch file{1..5}.txt -for creating five files 
+-rm file* - for removing all files which name start from file 
+-rmdir -for removing specific directory 
+-rm -r folder - delete all stuff from the folder 
+-cp textfile.txt newfolder/ -it will copy the file to the newfolder
+-cp LinuxForDevops/* new_folder/ -for copying all files from linux to newfolder
+-cp -r cloud/ newfolder/ - for copy all content from cloud to newfolder
+-mv newfolder ../cloud -for moving the file from this folder to previous folder
+-mv new_folder LinuxForDevops - for renaming the folder
+-wc file.txt - it count the word lines alphabet
+-ln -s /home/vboxuser/cloud/devops/file.txt softlink-file -use for making the link orshortcut of the file softlink is totally depend on the origion folder if the original folder is delete then the softlink will not work
+-ls -l -show the permissions 
+-ln /home/vboxuser/cloud/devops/file.txt hardlink-file -use for making the link orshortcut of the file hardlink is not depent on origion folder if the original dolder is delete then the hard link will not affect 
+-cut -b 1 myfile.txt -cut the 1 byte from the file and give output (t)
+-cut -b 1-4 myfile.txt -cut firls four bytes from the file give output (this) 
+-history -show which command is use  
+ -sudo apt update - for using superuser to do some work like update 
+ -sudo su- login as root user 
+ -sudo apt update -for update 
+ -service  docker status
+ -systemctl docker status
+ -echo "hi"- print command 
+ -echo "this is cool" > testfile.txt - the text will automatically save in testfile
+ -echo "hello" | tee hello.txt -print and alse create file and enter data 
+ -sort file.txt -it will sort the file 
+ -diff afile.txt bfile.txt - it help to compare two files 
+ --------------------------------------------------------------------------------------
+ -df -h -checking the disc space 
+ -vmstat -for memory information 
+ -du -for folder information 
+ -ps -for bash command working on which process
+ -top -for process
+ -kill -for killing any process
+ -free - info of ram 
+ -nohup anycommand -for saving any command output in file 
+ -----------------------------------------------------------------------------------
+system level command 
+-uname -give out the system which we use linke linux , darvin (for mac)
+-uptime -from how much time computer run 
+-who - user activity 
+-whoami -logedin user info 
+-which  -help to know the location of installed app like (which bash )
+-id -show id of user 
+-sudo shutdown -for shuting the computer
+-sudo reboot -for rebooting 
+-sudo apt-get install filename -for install sommething 
+-sudo apt remove filename -for remove file 
+-------------------------------------------------------------------------------------
+user in linux 
+-sudo useradd -m udit- for adding new user
+-sudo passwd udit -create password for user 
+-su udit -for changing user 
+-exit -for change secondary user to primary user 
+-sudo userdel udit -for deleting user 
+-sudo groupadd devops -for creating group 
+-sudo gpasswd -a a devops - for adding a user to devops (command for single user add)
+-sudo gpasswd -M a,b,c,d  devops- for adding multiple user in group 
+-cat /etc/group -for checking groups 
+-sudo groupdel devops - fro deleting group 
+---------------------------------------------------------------------------------
+ file permission management 
+ -chmod - for permission of change or modifiy   
+ -chmod 777 samplefile.sh -for full excess we use 777 
+ -sudo chown udit demofile.txt - changing the ownorship of any file
+ -sudo chgrp groupname filename.txt -change the group of the file 
+ -ls -l -check file permission 
+ ---------------------------------------------------------------------------------
+compression commands 
+-sudo apt install zip 
+-zip -r zipfile.zip folder/ -for zipping all the content of a folder 
+-zip zipfile.zip folder/* -for zipping all the content of a folder 
+-unzip zipfile.zip - for unzipping 
+-tar -cvzf cloud.tar.gz cloud -zipping the cloud file using tar 
+-tar -xvzf cloud.tar.gz -for unzipping 
+-scp -i "/User/udit/Download/key.pem"file-to-transfer.txt ubuntu@ex2-3-15-221-86.us-east-2.computer.amazonaws.com:/home/ubuntu  -for transfer file from one server to another 
+-rsync  -e "ssh -i /User/udit/Download/key.pem -avz linux_for_devops ubuntu@ex2-3-15-221-86.us-east-2.computer.amazonaws.com:/home/ubuntu/Linux_for_devops -command for sync both local computer to remote server and sync a folder linux for devops 
+--------------------------------------------------------------------------------------
+networking commands 
+-ping -c 2 8.8.8.8 -for checking the internet connectivity
+-netstat -a - to check active connections on a server  | ss-same as netstat
+-ifconfig -netwo rk interface details of network interface card 
+-traceroute - it will tell us from where the website is connecting 
+-tracepath -
+-mtr -
+-nslookup -for check domain working or not  and getting the ip address of website 
+-telnet  -help to connect on weebsite with specific port 
+-hostname -give host name  
+-cat /etc/hosts -give host information 
+-ip address show -show ip info 
+-iwconfig
+-dig -show where site is hosted 
+-whois - giv info about site from where they register their site 
+-nc
+-arp -address routing protocol  help to know macaddress
+-ifplugstatus - help to know that interface are working on not
+-------------------------------------------------------------------------------------
+-curl -X GET api_link -for calling api 
+-jq is use to properly show the api data it is use in curl command (curl -X GET apilink |jq)
+-wget https:// sample link - for dowloading data from link  
+-iptables
+-watch command -use to run the command repetetively again and agai automatically
+-nmap -natwork map
+-route -
+----------------------------------------------------------------------------------------
+pro linux commands 
+AWK  - it requie formatted data 
+-df -h | awk '{print $1}' - it will print first column of the memory table 
+-df -h | awk '{print $2" " $3" "$4" "}'- print specific columns 
+-df -h | awk '{print $1" " $2" } NR==2{exit}'- exit after print two lines  
+-awk '{print $1}' app.log - for print column one in file 
+-awk '{print $1,$2}' app.log -for print two column 
+-awk'/INFO/{print $1,$2,$5}' app.log- the line which contain info is print
+-awk'/INFO/{print $1,$2,$5}' app.log > info.txt -for tranfer this data into file 
+-awk'/INFO/ {count++} END {print count}' app.log -> it will count the no of time info come in file 
+-awk '$2>="2" $$ $<="5" {print $3}' app.log - the number between 2 and 5 in file will print
+
+-SED 	-it works line by line it structured and unstructured data doesnt affect   
+-sed -n '/info/p' app.log -print the line which contain info 
+-sed 's/info/log/g' app.log -info replace by log in whole file g=global
+-sed -n -e '/info/=' app.log -info use in which line print the number of line 
+-sed -n -e '/info/=' -e '/info/p' app.log 
+-sed '1,15 s/info/log/g'app.log -print line 1 to 15 in which info is use and change to log 
+-sed '1,15 s/info/log/g;1,10p;11q' app.log
+
+GREP
+-grep INFO app.log -find info from file print
+-grep -i info app.log - -i is for case insensitive 
+-grep -i -c info app.log -print count 
+-ps aux | grep ubuntu | awk'{print $2}' - for use multiple command we use pipe (|)
+
+-lsblk -list the block use in aws
+-sudo su -for making the root user to avoid use sudo in every command 
+-lvm
+-pvs -for see phiysical volume
+-pvcreate /dev/xvdf /dev/xvdg /dev/xvdh -creating physical for first volume 
+-vgcreate name_volume /dev/xvdf /dev/xvdg  -for creating volume group which include xvdf,xvdg,
+-vgs -for show volume group
+-lvcreate -L 10G -n logname group_name - creating logical volume from group volume name logname of 10gb size  
+-pvdisplay -display all info of physical volume 
+-vgdisplay-display all info of volume group
+-lvdisplay-display all info of logical volume 
+-lvs
+-mkdir /mnt /tws_lv_mount -making the directory for mounting
+-mkfs.ext4 /dev/tws_vg/tws_lv -use to formating the lv 
+-mkfs -t ext4 /dev/xvdh -for mounting nongroup single volume  
+-mount /dev/tws_vg/tws_lv /mnt/tws_lv_mount - for mounting the logical volume(mount source destination 
+-umount /mnt/tws_lv_mount -for unmounting the logical volume 
+-mountpoint /data -for checking that the volume is mount 
+-lvextend -L +5G /dev/tws_vg/tws_lv tws_vg -for extend the volume from group 
+
+
+
+
+
+
+ 
+
+
+

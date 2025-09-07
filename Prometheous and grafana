@@ -1,0 +1,91 @@
+https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqblRKeEJJU2E3VnJkd1dqYnhnYnN6Q2E0dlFpd3xBQ3Jtc0ttMTZfLVhDZjF5aHVuMmRDSWx1eUFsR0pJUkwxbjhYMV9TcWhRdk5vV09vdGZpTUo5ampHNlMtbjU4RGF3VWNTS2FoTjdXOFN4b1lLWHY3VnRneU5faWpXb0FWbjFVQ1kyUnYyS25CcEtwelBHdWVXNA&q=https%3A%2F%2Fgithub.com%2FLondheShubham153%2Fk8s-kind-voting-app%2F&v=DXZUunEeHqM
+
+Prometheus is an open-source systems monitoring and alerting toolkit that collects and stores time-series data, it is time series database 
+Grafana is an open-source data analytics and visualization ( Making dashboard )web application that can ingest data from various sources, including Prometheus, and display it in customizable charts. 
+
+Observability 
+  - Monitoring 
+  - Logging 
+  - Tracing - encounter the error and solve it 
+  - Alerting - sending messages 
+  - Visualization - 
+
+helm is use to install the prometheous and grafana . and helm is the package manager of the kubernetes 
+
+for installation :- /k8s-kind-voting-app/kind-cluster/commands.md on git hub 
+1. firstly we need to install helm or we can install prometheous and grafana without helm but using help is process become easier 
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+2.install prometeheous using helm 
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+kubectl create namespace monitoring
+helm install kind-prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --set prometheus.service.nodePort=30000 --set prometheus.service.type=NodePort --set grafana.service.nodePort=31000 --set grafana.service.type=NodePort --set alertmanager.service.nodePort=32000 --set alertmanager.service.type=NodePort --set prometheus-node-exporter.service.nodePort=32001 --set prometheus-node-exporter.service.type=NodePort
+kubectl get svc -n monitoring
+kubectl get namespace
+
+3. now port forwarding 
+kubectl port-forward svc/kind-prometheus-kube-prome-prometheus -n monitoring 9090:9090 --address=0.0.0.0 &
+kubectl port-forward svc/kind-prometheus-grafana -n monitoring 31000:80 --address=0.0.0.0 &
+
+4. now we can access the port by usning local host:9090 - for prometheus and local host :31000 for grafana 
+5. now open the prometheus and click on status > target and check that our data is comming or not and also copy the quary from git and  paste the quary in the section and check the graph
+6. opwn grafana on port 31000 and login usning cred - username - admin - and pass prom-operator
+
+-- for creating administration user in grafana - administration > user and access > users > add user > enter info > save 
+
+-- establishing connection in grafana - connection > datasource > select prometheous> enter query and run  
+
+-- connect to the data source in grafana --
+go to configuration > data source > add source > select prometheus > and fill info > save 
+
+-- creating a dashboard --
+click on dashboard > click on add eempty panal > select data source > and fill the quarry > we can choose the suggested charts > save 
+
+-- sending notification to teams --
+- cretate channel on teams > go to connectors > now click on incoming webhooks > create and copy the link > now open grafana > alert manager > contact point > create > select intigration as teams >  add name and link >  test 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
