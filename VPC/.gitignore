@@ -1,0 +1,15 @@
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform.lock.hcl
+*terraform
+ Local .terraform directories
+ .terraform/providers/
+ .terraform/modules/
+ Crash log files
+crash.log
+ Exclude override files as they are usually used to override resources locally and so
+ are not checked in                
