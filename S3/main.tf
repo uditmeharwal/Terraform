@@ -8,15 +8,16 @@ terraform {
 }
 
 provider "aws" {
-  # Configuration options
+  region = var.region[0]
 }
+
 output "s3" {
     value = aws_s3_bucket.bucket.id
 
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "uditmeharwal-terraform_bucket8267977123"
+  bucket = "uditmeharwal-terraform-bucket"
 
   tags = {
     Name        = "uditmeharwal-terraform_bucket"
