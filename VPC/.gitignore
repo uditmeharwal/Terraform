@@ -13,3 +13,5 @@
 crash.log
  Exclude override files as they are usually used to override resources locally and so
  are not checked in                
+ *.terraform-provider-aws_v6.12.0_x5
+ 
