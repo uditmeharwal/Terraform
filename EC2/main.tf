@@ -19,7 +19,13 @@ resource "aws_instance" "my_instance" {
   subnet_id = "subnet-0199b9c200116e62d"
   vpc_security_group_ids = ["sgr-002fa3a736f774844"]
   key_name = "MY_KEY"
+  associate_public_ip_address = true
   count = 2
+  
+  user_data = <<EOF
+              #!/bin/bash
+              echo "Hello, World!" 
+              EOF
   tags = {
     Name = "my first_ec2"
   }
