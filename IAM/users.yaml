@@ -1,0 +1,7 @@
+users :
+ - username: udit
+   role : admin
+ - username: anuj
+   role : developer
+ - username: rohit
+   role : viewer
